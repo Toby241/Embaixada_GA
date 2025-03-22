@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %} Embaixada Do Gabao no Brasil {% endblock %}</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="shortcut icon" href="{% static 'images/Design sem nome (12).png' %}" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/new_base.css' %}">
+</head>
+
+<body>
+  <header id="header" class="header">
+    <div class="container header__container">
+      <nav class="nav">
+        <div class="nav__left">
+          <a href="{% url 'home' %}" class="nav__brand">
+            <img src="{% static 'images/logo_emb.png' %}" alt="Logo da Embaixada" class="nav__logo">
+            <p class="nav__title">Embaixada da República Gabonesa no Brasil</p>
+          </a>
+        </div>
+        <div class="nav__center">
+          <ul class="nav__menu">
+            <li class="nav__item"><a href="{% url 'home' %}" class="nav__link">Início</a></li>
+
+            <li class="nav-item dropdown me-1">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownAtualidades"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sobre
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownAtualidades">
+                <li><a class="dropdown-item d-flex align-items-center" href="{% url 'embaixada' %}">Embaixada</a></li>
+                <li><a class="dropdown-item d-flex align-items-center" href="{% url 'embaixador' %}">Embaixador</a></li>
+                <li><a class="dropdown-item d-flex align-items-center" href="{% url 'departemento' %}">Departamento</a>
+                <li><a href="{% url 'gabao' %}" class="dropdown-item d-flex align-items-center">O Gabão</a></li>
+              </ul>
+            </li>
+
+
+            <li class="nav__item"><a href="{% url 'servicos' %}" class="nav__link">Serviços</a></li>
+
+            <li class="nav__item">
+              <!-- Botão para abrir a sidebar -->
+              <a class="nav__link" id="toggleSidebar" href="#" role="button">Eventos</a>
+
+              <!-- Sidebar (Offcanvas) -->
+              <div id="sidebar" class="custom-sidebar">
+                <div class="custom-sidebar-header">
+                  <h5 class="custom-sidebar-title">Eventos </h5>
+                  <button id="closeSidebar" class="custom-close-btn">×</button>
+                </div>
+                <div class="custom-sidebar-body">
+                  <p>Conteúdo da sidebar aqui...</p>
+                  <!-- Calendário -->
+                  <div id="calendar"></div>
+                  <!-- Lista de Eventos -->
+                  <div class="lista-evento mt-3">
+                    {% for evento in ultimos_eventos %}
+                    <div class="evento-item" data-titulo="{{ evento.titulo }}">
+                      <h3 class="evento-titulo">{{ evento.titulo }}</h3>
+                      <p>{{ evento.descricao|default:"Sem descrição" }}</p>
+                      <p><strong>Data:</strong> {{ evento.data|date:"Y-m-d H:i:s" }}</p>
+                      <p><strong>Local:</strong> {{ evento.local|default:"Local não informado" }}</p>
+                    </div>
+
+                    {% empty %}
+                    <p class="text-center text-muted">Nenhum evento encontrado.</p>
+                    {% endfor %}
+                  </div>
+                </div>
+            </li>
+            <li class="nav-item dropdown me-1">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownAtualidades"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Atualidades
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownAtualidades">
+                <li><a class="dropdown-item d-flex align-items-center" href="{% url 'lista_noticias' %}">Notícias</a>
+                </li>
+                <li><a class="dropdown-item d-flex align-items-center"
+                    href="{% url 'lista_comunicados' %}">Comunicados</a>
+                </li>
+                <li>
+
+                </li>
+                <li><a class="dropdown-item d-flex align-items-center" href="{% url 'mensagem' %}">Mensagem do
+                    Embaixador</a></li>
+
+              </ul>
+            </li>
+          </ul>
+
+
+
+          <div class="nav__search">
+            <input type="search" id="searchInput" placeholder="Buscar..." class="nav__input">
+            <svg class="nav__search-icon" id="searchIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+                d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+            </svg>
+          </div>
+
+          <script>
+            document.getElementById('searchIcon').addEventListener('click', function () {
+              performSearch();
+            });
+
+            document.getElementById('searchInput').addEventListener('keypress', function (event) {
+              if (event.key === 'Enter') {
+                performSearch();
+              }
+            });
+
+            function performSearch() {
+              const searchTerm = document.getElementById('searchInput').value.trim();
+              if (searchTerm) {
+                window.location.href = `{% url 'search' %}?q=${encodeURIComponent(searchTerm)}`;
+              }
+            }
+          </script>
+
+
+        </div>
+
+        <script>
+          document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            let formData = new FormData(this);
+            let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+            fetch("{% url 'login' %}", {
+              method: "POST",
+              headers: {
+                "X-CSRFToken": csrfToken,
+              },
+              body: formData
+            })
+              .then(response => response.json())
+              .then(data => {
+                if (!data.success) {
+                  let errorMessage = document.getElementById("error-message");
+                  errorMessage.innerHTML = data.message;
+                  errorMessage.style.display = "block";
+                } else {
+                  window.location.reload(); // Atualiza a página caso o login seja bem-sucedido
+                }
+              })
+              .catch(error => console.error("Erro na requisição:", error));
+          });
+        </script>
+
+        <div class="nav__right">
+          <div class="dropdown">
+            <button type="button" class="dropdown-button" data-bs-toggle="dropdown" aria-expanded="false"
+              data-bs-auto-close="outside">
+              Entrar <i class="ri-arrow-right-line"></i>
+            </button>
+
+            <form id="loginForm" class="dropdown-menu form-container">
+              {% csrf_token %}
+              <div class="input-group">
+                <label for="emailField" class="input-label"></label>
+                <input type="email" class="input-field" name="username" id="emailField"
+                  placeholder="Seu @email cadastrado" required>
+              </div>
+              <div class="input-group">
+                <label for="passwordField" class="input-label"></label>
+                <input type="password" class="input-field" name="password" id="passwordField"
+                  placeholder="Palavra chave" required>
+              </div>
+              <button type="submit" class="login-button">Entrar</button>
+
+              <div id="error-message" class="error-messages" style="display: none;"></div>
+            </form>
+          </div>
+
+          <a href="{% url 'criar_conta' %}" class="nav__btn"><i class="ri-user-line"></i> Cadastre-se</a>
+        </div>
+
+        <div class="nav__toggle" id="nav-toggle">
+        </div>
+      </nav>
+
+
+
+    </div>
+
+    <style>
+      /* Variáveis */
+      :root {
+        --secondary-color: #ffffff;
+        --accent-color: #0066cc;
+        --hover-color: #005bb5;
+        --overlay-color: rgba(0, 0, 0, 0.6);
+        --transition-speed: 0.3s;
+      }
+
+      /* Botão do Menu Móvel */
+      .mobile-menu-trigger {
+        position: fixed;
+        top: 20px;
+        right: 15px;
+        font-size: 20px;
+        color: grey;
+        border: none;
+        background-color: transparent;
+        padding: 12px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background var(--transition-speed), transform var(--transition-speed);
+      }
+
+      .mobile-menu-trigger:hover {
+        transform: scale(1.05);
+      }
+
+      /* Overlay */
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--overlay-color);
+        z-index: 999;
+        opacity: 0;
+        transition: opacity var(--transition-speed);
+      }
+
+      .mobile-overlay.active {
+        display: block;
+        opacity: 1;
+      }
+
+      /* Menu Móvel */
+      .mobile-nav {
+        font-size: 1.2rem;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 300px;
+        height: 100%;
+        background: var(--secondary-color);
+        color: var(--primary-color);
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+        padding: 20px;
+        z-index: 1000;
+        transition: left var(--transition-speed);
+      }
+
+      .mobile-nav.active {
+        left: 0;
+      }
+
+      .close-mobile-nav {
+        font-size: 24px;
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        cursor: pointer;
+        margin-bottom: 20px;
+        transition: color var(--transition-speed);
+      }
+
+      .close-mobile-nav:hover {
+        color: var(--accent-color);
+      }
+
+      /* Links */
+      .mobile-nav-link {
+        display: block;
+        padding: 10px 0;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: bold;
+        border-bottom: 1px solid #f1f1f1;
+        transition: color var(--transition-speed);
+      }
+
+      .mobile-nav-link:hover {
+        color: var(--accent-color);
+      }
+
+      /* Submenu */
+      .mobile-submenu {
+        display: none;
+        padding-left: 20px;
+      }
+
+      .mobile-nav-item .mobile-dropdown-toggle[aria-expanded="true"]+.mobile-submenu {
+        display: block;
+      }
+
+      .mobile-submenu .mobile-nav-link {
+        font-size: 14px;
+      }
+
+      /* Responsividade */
+      @media (min-width: 769px) {
+
+        .mobile-menu-trigger,
+        .mobile-nav,
+        .mobile-overlay {
+          display: none !important;
+        }
+      }
+    </style>
+
+
+    <!-- Botão do Menu Móvel -->
+    <button id="mobileMenuButton" class="mobile-menu-trigger" aria-label="Abrir Menu">
+      <i class="ri-menu-3-line"></i>
+    </button>
+
+    <!-- Overlay -->
+    <div id="overlay" class="mobile-overlay" aria-hidden="true"></div>
+
+    <!-- Menu Móvel -->
+    <nav id="mobileMenu" class="mobile-nav" aria-label="Menu Principal" aria-hidden="true">
+      <button id="closeMobileMenu" class="close-mobile-nav" aria-label="Fechar Menu">
+        <i class="ri-close-line"></i>
+      </button>
+      <ul class="menu-list">
+        <li><a href="{% url 'home' %}" class="mobile-nav-link">Início</a></li>
+        <li class="mobile-nav-item dropdown">
+          <a href="#" class="mobile-nav-link mobile-dropdown-toggle" aria-expanded="false">Sobre</a>
+          <ul class="mobile-submenu" role="menu">
+            <li><a href="{% url 'embaixada' %}" class="mobile-nav-link">Embaixada</a></li>
+            <li><a href="{% url 'embaixador' %}" class="mobile-nav-link">Embaixador</a></li>
+            <li><a href="{% url 'departemento' %}" class="mobile-nav-link">Departamento</a></li>
+            <li><a href="{% url 'gabao' %}" class="mobile-nav-link">O Gabão</a></li>
+          </ul>
+        </li>
+        <li><a href="{% url 'servicos' %}" class="mobile-nav-link">Serviços</a></li>
+        <li class="mobile-nav-item dropdown">
+          <a href="#" class="mobile-nav-link mobile-dropdown-toggle" aria-expanded="false">Atualidades</a>
+          <ul class="mobile-submenu" role="menu">
+            <li><a href="{% url 'lista_noticias' %}" class="mobile-nav-link">Notícias</a></li>
+            <li><a href="{% url 'lista_comunicados' %}" class="mobile-nav-link">Comunicados</a></li>
+            <li><a href="{% url 'mensagem' %}" class="mobile-nav-link">Mensagem do Embaixador</a></li>
+          </ul>
+        </li>
+
+        <div class="custom-sidebar-body">
+          <p>Últimos eventos</p>
+          <!-- Calendário -->
+          <div id="calendar"></div>
+          <!-- Lista de Eventos -->
+          <div class="lista-evento mt-3">
+            {% for evento in ultimos_eventos %}
+            <div class="evento-item" data-titulo="{{ evento.titulo }}">
+              <h3 class="evento-titulo">{{ evento.titulo }}</h3>
+              <p>{{ evento.descricao|default:"Sem descrição" }}</p>
+              <p><strong>Data:</strong> {{ evento.data|date:"Y-m-d H:i:s" }}</p>
+              <p><strong>Local:</strong> {{ evento.local|default:"Local não informado" }}</p>
+            </div>
+            {% empty %}
+            <p class="text-center text-muted">Nenhum evento encontrado.</p>
+            {% endfor %}
+          </div>
+        </div>
+      </ul>
+    </nav>
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const menuButton = document.getElementById("mobileMenuButton");
+        const closeButton = document.getElementById("closeMobileMenu");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("overlay");
+
+        function toggleMenu() {
+          mobileMenu.classList.toggle("active");
+          overlay.classList.toggle("active");
+        }
+
+        menuButton.addEventListener("click", toggleMenu);
+        closeButton.addEventListener("click", toggleMenu);
+        overlay.addEventListener("click", toggleMenu);
+
+        document.querySelectorAll(".mobile-dropdown-toggle").forEach((toggle) => {
+          toggle.addEventListener("click", (e) => {
+            e.preventDefault();
+            const expanded = toggle.getAttribute("aria-expanded") === "true";
+            toggle.setAttribute("aria-expanded", !expanded);
+          });
+        });
+      });
+    </script>
+  </header>
+
+
+  <main>
+    {% block content %}
+    <!-- O conteúdo específico de cada página será inserido aqui -->
+
+
+    {% endblock %}
+  </main>
+
+
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="d-grid footer__wrapper">
+        <div class="footer__content">
+          <h4 class="footer__title">Siga-nos</h4>
+          <ul class="footer__social-list">
+            <li class="footer__social-item"><a href="#" class="footer__social-link"><i class="ri-facebook-fill"></i></a>
+            </li>
+            <li class="footer__social-item"><a href="#" class="footer__social-link"><i
+                  class="ri-instagram-fill"></i></a></li>
+            <li class="footer__social-item"><a href="#" class="footer__social-link"><i class="ri-twitter-fill"></i></a>
+            </li>
+            <li class="footer__social-item"><a href="#" class="footer__social-link"><i class="ri-linkedin-fill"></i></a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer__content">
+          <h4 class="footer__title">Contato</h4>
+          <p class="footer__contact-info">
+            <strong>E-mail:</strong> <a href="mailto:contato@embaixadadogabon.br"
+              class="footer__contact">contato@embaixadadogabon.br</a><br>
+            <strong>Telefone:</strong> <a href="tel:+55-61-1234-5678" class="footer__contact">+55 61 1234-5678</a><br>
+            <strong>Número de emergência:</strong> <a href="tel:+33-1-89-71-92-99" class="footer__contact">+33 1 89 71
+              92 99</a>
+          </p>
+        </div>
+        <div class="footer__content">
+          <h4 class="footer__title">Endereço e Horários</h4>
+          <p class="footer__contact-info">
+            <strong>Endereço:</strong><br>Embaixada do Gabão no Brasil<br>SHIS QI 15, Conjunto 10, Casa
+            20<br>71640-115
+            Brasília, DF, Brasil<br>
+          </p>
+          <p class="footer__contact-info">
+            <strong>Horário de funcionamento:</strong><br>Segunda - Quinta: 9h00 - 16h30<br>Sexta: 9h00 - 16h00
+          </p>
+        </div>
+        <div class="footer__content">
+          <h4 class="footer__title">Equipe e Localização</h4>
+          <p class="footer__contact-info">
+            <strong>Cônsul Geral:</strong> [Nome do Cônsul]<br>
+            <strong>Embaixador:</strong> [Nome do Embaixador]<br>
+          </p>
+          <div class="footer__map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3839.123456789012!2d-47.87654321098765!3d-15.789012345678901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTXCsDQ3JzIwLjQiUyA0N8KwNTInMzEuNiJX!5e0!3m2!1sen!2sbr!4v1699999999999!5m2!1sen!2sbr"
+              width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <p class="footer__copyright">&copy; 2024 Embaixada do Gabão no Brasil. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="{% static 'js/home.js' %}"></script>
+</body>
+
+</html>

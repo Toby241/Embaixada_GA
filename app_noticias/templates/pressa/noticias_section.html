@@ -1,0 +1,15 @@
+<section id="noticias">
+  <h2>Últimas Notícias</h2>
+  {% for noticia in noticias %}
+  <article>
+    {% if noticia.imagem %}
+    <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}">
+    {% endif %}
+    <h3>{{ noticia.titulo }}</h3>
+    <p>{{ noticia.resumo }}</p>
+    <a href="{% url 'ler_noticia' noticia.id %}">Leia mais</a>
+  </article>
+  {% empty %}
+  <p>Não há notícias disponíveis.</p>
+  {% endfor %}
+</section>

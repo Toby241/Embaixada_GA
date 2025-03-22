@@ -1,0 +1,131 @@
+{% extends "home/base.html" %}
+
+{% load static %}
+{% block title %}Embaixada - Meu App Django{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<main class="main">
+
+  <!--= Hero =-->
+  <section id="hero" class="hero">
+    <div class="container">
+      <div class="d-grid hero__wrapper">
+        <div class="hero__content">
+          <h1 class="hero__title">S.E Embaixador Jacques Michel Moudoute-Bell</h1>
+          <p class="hero__description">
+            O Embaixador Jacques Michel Moudoute-Bell é o representante diplomático do Gabão no Brasil, dedicado a
+            fortalecer as relações bilaterais entre os dois países. Com uma carreira marcada por compromisso e
+            excelência, ele trabalha para promover a cooperação em áreas como comércio, cultura, educação e
+            desenvolvimento sustentável.
+          </p>
+          <div class="hero__info">
+            <div class="hero__info-wrapper">
+              <p class="hero__info-number">20+</p>
+              <h2 class="hero__info-title">Anos de<br>Experiência</h2>
+            </div>
+            <div class="hero__info-wrapper">
+              <p class="hero__info-number">50+</p>
+              <h2 class="hero__info-title">Missões<br>Diplomáticas</h2>
+            </div>
+            <div class="hero__info-wrapper">
+              <p class="hero__info-number">10+</p>
+              <h2 class="hero__info-title">Acordos<br>Assinados</h2>
+            </div>
+          </div>
+        </div>
+        <img src="assets/img/embaixador.jpg" alt="Embaixador Jacques Michel Moudoute-Bell" class="hero__img">
+      </div>
+    </div>
+  </section>
+
+  <!--= Qualification =-->
+  <section id="qualification" class="section qualification">
+    <div class="container">
+      <div class="section__header">
+        <h2 class="section__title">Trajetória</h2>
+        <span class="section__subtitle">Experiência e Formação</span>
+      </div>
+      <!--= Experiência Profissional =-->
+      <div class="qualification__wrapper">
+        <h3 class="qualification__name">
+          <i class="ri-briefcase-fill"></i>
+          Experiência Profissional
+        </h3>
+        <div class="d-grid qualification__content">
+          <!--= Experiência 1 =-->
+          <div class="qualification__item">
+            <h3 class="qualification__title">Embaixador do Gabão no Brasil</h3>
+            <p class="qualification__description">
+              Representante máximo do Gabão no Brasil, responsável por fortalecer as relações diplomáticas, econômicas
+              e culturais entre os dois países.
+            </p>
+            <span class="qualification__date">2020 - Presente</span>
+          </div>
+          <!--= Experiência 2 =-->
+          <div class="qualification__item">
+            <h3 class="qualification__title">Diretor-Geral de Cooperação Internacional</h3>
+            <p class="qualification__description">
+              Coordenou projetos de cooperação internacional, promovendo parcerias estratégicas e acordos bilaterais.
+            </p>
+            <span class="qualification__date">2015 - 2020</span>
+          </div>
+          <!--= Experiência 3 =-->
+          <div class="qualification__item">
+            <h3 class="qualification__title">Conselheiro Diplomático</h3>
+            <p class="qualification__description">
+              Atuou como conselheiro em diversas missões diplomáticas, representando o Gabão em fóruns internacionais.
+            </p>
+            <span class="qualification__date">2010 - 2015</span>
+          </div>
+        </div>
+      </div>
+      <!--= Educação =-->
+      <div class="qualification__wrapper">
+        <h3 class="qualification__name">
+          <i class="ri-booklet-fill"></i>
+          Educação
+        </h3>
+        <div class="d-grid qualification__content">
+          <!--= Educação 1 =-->
+          <div class="qualification__item">
+            <h3 class="qualification__title">Mestrado em Relações Internacionais</h3>
+            <p class="qualification__description">
+              Formado em Relações Internacionais pela Universidade de Paris, com especialização em Diplomacia e
+              Cooperação Internacional.
+            </p>
+            <span class="qualification__date">2005 - 2007</span>
+          </div>
+          <!--= Educação 2 =-->
+          <div class="qualification__item">
+            <h3 class="qualification__title">Bacharelado em Ciências Políticas</h3>
+            <p class="qualification__description">
+              Graduado em Ciências Políticas pela Universidade Omar Bongo, no Gabão.
+            </p>
+            <span class="qualification__date">2000 - 2004</span>
+          </div>
+          <!--= Educação 3 =-->
+          <div class="qualification__item">
+            <h3 class="qualification__title">Curso de Alta Diplomacia</h3>
+            <p class="qualification__description">
+              Participou de cursos avançados em diplomacia e negociação internacional em instituições renomadas.
+            </p>
+            <span class="qualification__date">2008 - 2009</span>
+          </div>
+        </div>
+      </div>
+      <div class="qualification__footer">
+        <p class="qualification__footer-text">Veja o currículo completo</p>
+        <a href="#" class="btn btn--primary">Currículo</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="{% static 'js/base.js'%}"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+
+{% endblock %}

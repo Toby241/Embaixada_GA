@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ noticia.titulo }}</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+  <!-- Conteúdo Principal -->
+  <main class="container">
+    <article class="noticia">
+      <!-- Título da Notícia -->
+      <div class="noticia-header">
+        <h1 class="noticia-titulo">{{ noticia.titulo }}</h1>
+        <div class="noticia-meta">
+          <img src="https://source.unsplash.com/75x75/?portrait" alt="{{ noticia.autor.username }}"
+            class="autor-avatar">
+          <p class="autor-nome">{{ noticia.autor.username }} • {{ noticia.data_publicacao|date:"d M Y" }}</p>
+          <p class="tempo-leitura">Tempo estimado de leitura: 4 min</p>
+        </div>
+      </div>
+
+      <!-- Imagem da Notícia -->
+      {% if noticia.imagem %}
+      <div class="noticia-imagem">
+        <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}">
+      </div>
+      {% endif %}
+
+      <!-- Conteúdo da Notícia -->
+      <div class="noticia-conteudo">
+        <p>{{ noticia.conteudo }}</p>
+      </div>
+    </article>
+
+    <!-- Tags e Posts Relacionados -->
+    <div class="tags-relacionados">
+      <!-- Tags -->
+      <div class="tags">
+        <a href="#" class="tag">#Notícias</a>
+        <a href="#" class="tag">#Eventos</a>
+        <a href="#" class="tag">#Comunicados</a>
+      </div>
+
+      <!-- Posts Relacionados -->
+      <div class="posts-relacionados">
+        <h4 class="posts-titulo">Posts Relacionados</h4>
+        <ul class="posts-lista">
+          <li><a href="#" class="post-link">Nunc id magna mollis</a></li>
+          <li><a href="#" class="post-link">Duis molestie, neque eget pretium lobortis</a></li>
+          <li><a href="#" class="post-link">Mauris nec urna volutpat, aliquam lectus sit amet</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Seção de Comentários -->
+    <div class="comentarios">
+      <div class="comentarios-titulo">Comentários</div>
+      <div class="comentarios-lista">
+        {% for comentario in comentarios %}
+        <div class="comentario">
+          <div class="comentario-usuario">
+            <div class="usuario-avatar">{{ comentario.nome|slice:":1"|upper }}</div>
+            <div class="usuario-info">
+              <span class="usuario-nome">{{ comentario.nome }}</span>
+              <p class="comentario-data">{{ comentario.data_criacao|date:"l, F jS \a\t g:i A" }}</p>
+            </div>
+          </div>
+          <p class="comentario-conteudo">{{ comentario.conteudo }}</p>
+        </div>
+        {% empty %}
+        <p class="sem-comentarios">Nenhum comentário disponível.</p>
+        {% endfor %}
+      </div>
+
+      <!-- Formulário de Comentário -->
+      <div class="formulario-comentario">
+        <h2 class="formulario-titulo">Deixe um comentário</h2>
+        <form method="POST" action="">
+          {% csrf_token %}
+          <div class="formulario-campos">
+            <input type="text" name="nome" placeholder="Seu nome" required class="campo-input">
+            <input type="email" name="email" placeholder="Seu email" required class="campo-input">
+            <textarea name="conteudo" placeholder="Escreva seu comentário..." required
+              class="campo-textarea"></textarea>
+          </div>
+          <button type="submit" class="botao-enviar">Enviar Comentário</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <p class="footer-texto">&copy; 2023 Portal de Notícias. Todos os direitos reservados.</p>
+    <div class="footer-redes">
+      <a href="#" class="rede-social"><i class="fab fa-facebook"></i></a>
+      <a href="#" class="rede-social"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="rede-social"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+</body>
+
+</html>
+
+
+
+<style>
+  /* Estilos Globais */
+  body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f9fafb;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* Notícia */
+  .noticia {
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .noticia-header {
+    margin-bottom: 20px;
+  }
+
+  .noticia-titulo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  .noticia-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #777;
+  }
+
+  .autor-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .autor-nome {
+    font-size: 0.9rem;
+  }
+
+  .tempo-leitura {
+    font-size: 0.9rem;
+    margin-left: auto;
+  }
+
+  .noticia-imagem img {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 20px;
+  }
+
+  .noticia-conteudo {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.8;
+  }
+
+  /* Tags e Posts Relacionados */
+  .tags-relacionados {
+    margin-bottom: 20px;
+  }
+
+  .tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .tag {
+    background-color: #3498db;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .tag:hover {
+    background-color: #2980b9;
+  }
+
+  .posts-relacionados {
+    margin-top: 20px;
+  }
+
+  .posts-titulo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  .posts-lista {
+    list-style: disc;
+    padding-left: 20px;
+  }
+
+  .post-link {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .post-link:hover {
+    color: #2980b9;
+  }
+
+  /* Comentários */
+  .comentarios {
+    background-color: #f9fafb;
+    padding: 20px;
+  }
+
+  .comentarios-titulo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  .comentarios-lista {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+  }
+
+  .comentario {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .comentario-usuario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .usuario-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #3498db;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  .usuario-nome {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+
+  .comentario-data {
+    font-size: 0.8rem;
+    color: #777;
+  }
+
+  .comentario-conteudo {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .sem-comentarios {
+    text-align: center;
+    color: #777;
+    font-size: 0.9rem;
+  }
+
+  .ver-todos-comentarios {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .ver-todos-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+
+  .ver-todos-link:hover {
+    color: #2980b9;
+  }
+
+  /* Formulário de Comentário */
+  .formulario-comentario {
+    margin-bottom: 2rem;
+    margin-top: 20px;
+  }
+
+  .formulario-titulo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  .formulario-campos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .campo-input,
+  .campo-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .campo-input:focus,
+  .campo-textarea:focus {
+    border-color: #3498db;
+  }
+
+  .campo-textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .botao-enviar {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .botao-enviar:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+  }
+
+  /* Rodapé */
+  .footer {
+    background-color: #151515;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+  }
+
+  .footer-texto {
+    margin-bottom: 10px;
+  }
+
+  .footer-redes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .rede-social {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+
+  .rede-social:hover {
+    color: #ecf0f1;
+  }
+</style>

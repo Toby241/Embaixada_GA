@@ -1,0 +1,179 @@
+{% extends "home/base.html" %}
+
+{% load static %}
+{% block title %}Home - Meu App Django{% endblock %}
+
+{% block content %}
+
+<main>
+
+  <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+  <section class="jmain">
+
+    <section class="jmain">
+      <form action="{% url 'cadastrar' %}" method="POST" class="form">
+        {% csrf_token %}
+        <h1>Bienvenue sur le Registre d'inscription Consulaire</h1>
+        <p>Assurez-vous de remplir tous les champs</p>
+        <br>
+        <div class="flex">
+          <label for="nom">
+            <input required type="text" id="nom" name="nom" class="input">
+            <span>Nom</span>
+          </label>
+
+          <label for="prenom">
+            <input required type="text" id="prenom" name="prenom" class="input">
+            <span>Prénom</span>
+          </label>
+        </div>
+
+        <label for="date_naissance">
+          <input required type="date" id="date_naissance" name="date_naissance" class="input">
+          <span></span>
+        </label>
+
+        <div class="flex">
+          <label for="passport">
+            <input required type="text" id="passport" name="passport" class="input">
+            <span>Passport</span>
+          </label>
+
+          <label for="rnm">
+            <input required type="text" id="rnm" name="rnm" class="input">
+            <span>RNM</span>
+          </label>
+        </div>
+
+        <label for="adresse">
+          <input required type="text" id="adresse" name="adresse" class="input">
+          <span>Adresse complète</span>
+        </label>
+
+        <div class="flex">
+          <label for="ville">
+            <input required type="text" id="ville" name="ville" class="input">
+            <span>Ville</span>
+          </label>
+
+          <label for="etat">
+            <input required type="text" id="etat" name="etat" class="input">
+            <span>État</span>
+          </label>
+        </div>
+
+        <div class="flex">
+          <label for="contact">
+            <input required type="text" id="contact" name="contact" class="input">
+            <span>Contact</span>
+          </label>
+
+          <label for="email">
+            <input required type="email" id="email" name="email" class="input">
+            <span>E-mail</span>
+          </label>
+        </div>
+
+        <label for="etudiant">Vous êtes étudiant ?</label>
+        <select id="etudiant" name="etudiant" required onchange="toggleCampos()">
+          <option value="">Sélectionnez</option>
+          <option value="sim">Oui</option>
+          <option value="nao">Non</option>
+        </select>
+
+        <div id="campoCurso" style="display: none;">
+          <div class="flex">
+            <label for="cours">
+              <input type="text" id="cours" name="cours" class="input">
+              <span>Cours</span>
+            </label>
+
+            <label for="etablissement">
+              <input type="text" id="etablissement" name="etablissement" class="input">
+              <span>Établissement</span>
+            </label>
+          </div>
+        </div>
+
+        <div id="campoProfissao" style="display: none;">
+          <label for="profession">
+            <input type="text" id="profession" name="profession" class="input">
+            <span>Profession</span>
+          </label>
+        </div>
+
+        <input type="submit" class="submit" value="Soumettre">
+      </form>
+
+
+      <div class="wrapper">
+
+        <div class="notification">
+          <div class="notiglow"></div>
+          <div class="notiborderglow"></div>
+          <div class="notititle"> Traitement de vos donnees</div>
+
+          <br>
+          <div class="notibody">
+            <div class="step">
+              <i class="fas fa-check-circle"></i> <strong>Vérification</strong>
+              <p>Avant de soumettre votre formulaire, assurez-vous que toutes les informations sont correctes.
+              </p>
+            </div>
+            <br>
+            <div class="step">
+              <i class="fas fa-file-alt"></i> <strong>Traitement</strong>
+              <p>Une fois votre formulaire soumis, l'Ambassade du Gabon au Brésil procédera à l'examen de
+                votre inscription.</p>
+            </div>
+            <br>
+            <div class="step">
+              <i class="fas fa-hourglass-half"></i> <strong>Délais</strong>
+              <p>Votre demande sera traitée sous un délai de <strong>2 à 5 jours ouvrables</strong>.</p>
+            </div>
+            <br>
+            <div class="step">
+              <i class="fas fa-envelope"></i> <strong>Confirmation </strong>
+              <p>Une fois votre inscription validée, vous recevrez un <strong>e-mail de confirmation</strong>
+                avec votre numéro d'enregistrement ainsi que des informations complémentaires.</p>
+            </div>
+            <br>
+            <div class="step">
+              <i class="fas fa-phone-alt"></i> <strong>Assistance ?</strong>
+              <p>Si vous ne recevez pas d’e-mail après 5 jours ouvrables, veuillez contacter l'Ambassade pour
+                toute vérification.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <div class="notification-container">
+      <!-- Ícone de interrogação (abrir/fechar) -->
+      <div class="question-icon" id="questionIcon">
+        <i class="fa-solid fa-question"></i>
+      </div>
+
+      <!-- Conteúdo da notificação -->
+      <div class="notification-content" id="notificationContent">
+        <div class="notification-header">
+          <i class="ri-notification-3-line"></i>
+          <p>Pourquoi s'inscrire ?</p>
+        </div>
+        <div class="notification-body">
+          <p>En vous inscrivant, vous bénéficiez de plusieurs avantages :</p>
+          <ul>
+            <li>Recevoir des communications officielles et mises à jour importantes</li>
+            <li>Obtenir une assistance consulaire rapide en cas de besoin</li>
+            <li>Faciliter la communication avec l'Ambassade</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <script src="{% static 'js/cadastro.js' %}"></script>
+
+
+</main>
+{% endblock %}

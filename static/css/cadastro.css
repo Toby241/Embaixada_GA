@@ -1,0 +1,602 @@
+main {
+  margin-top: 10rem;
+  background-color: #DCDCDC !important;
+  margin-bottom: 8rem;
+}
+
+.notification-container {
+  border-radius: 2rem;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Ícone de interrogação */
+.question-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #003666;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.question-icon:hover {
+  background-color: #003666;
+  transform: scale(1.1);
+}
+
+.question-icon i {
+  color: white;
+  font-size: 20px;
+}
+
+/* Conteúdo da notificação */
+.notification-content {
+  color: #003666;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  width: 400px;
+  max-width: 400px;
+  background-color: #DCDCDC;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+@media(max-width: 678px) {
+  .notification-content {
+    color: white;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    right: 0;
+    width: 300px;
+    max-width: 400px;
+    background-color: var(--color-bg-primary);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+
+}
+
+.notification-content.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.notification-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.notification-header i {
+  font-size: 24px;
+  color: white;
+  margin-right: 10px;
+}
+
+.notification-header p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+}
+
+.notification-body {
+  font-size: 1rem;
+  color: #555;
+}
+
+.notification-body ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.notification-body li {
+  margin-bottom: 8px;
+}
+
+
+
+
+
+.jmain {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-right: 20px;
+  gap: 50px;
+  background-color: #DCDCDC;
+  flex-wrap: wrap;
+
+}
+
+.jmain h1 {
+  padding: 2rem 1rem;
+  color: #003666;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.jmain p {
+  color: var(--color-text);
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 1200px) {
+  .jmain {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .jmain {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    margin: 2rem;
+    margin-right: -2rem;
+    gap: 20px;
+    flex-wrap: wrap;
+
+  }
+
+  .jmain h1 {
+    padding: 2rem 1rem;
+    margin: 0;
+    font-size: 1.8rem;
+  }
+
+  .jmain p {
+    padding: 2rem;
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .jmain {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    margin: 0rem;
+    gap: 20px;
+
+    flex-wrap: wrap;
+  }
+
+
+
+  .jmain h1 {
+
+    margin: 0;
+  }
+
+  .jmain p {
+
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .jmain {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    margin: 0rem;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+
+
+
+}
+
+
+
+
+
+/* Estilos do formulário */
+.form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 400px;
+  background-color: #fcfcfc;
+  padding: 20px;
+  border-radius: 1rem;
+  overflow: hidden;
+  font-size: 16px;
+}
+
+/* Estilos dos inputs */
+.form input {
+  flex: 1 1 calc(50% - 5px);
+  /* Divide em 2 colunas com espaçamento */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #003666;
+  color: white;
+  font-size: 14px;
+  box-sizing: border-box;
+  /* Garante que o padding não aumente o tamanho */
+}
+
+/* Responsividade do formulário */
+@media (max-width: 1200px) {
+  .form {
+    max-width: 100%;
+    /* Ocupa a largura total */
+    gap: 10px;
+  }
+
+  .form input {
+    flex: 1 1 calc(50% - 5px);
+    /* Mantém 2 colunas */
+  }
+}
+
+@media (max-width: 768px) {
+  .form {
+    flex-direction: row;
+    /* Mantém em linha */
+    flex-wrap: wrap;
+    /* Permite quebra de linha */
+    gap: 10px;
+    padding: 15px;
+    font-size: 14px;
+    /* Reduz o tamanho da fonte */
+  }
+
+  .form input {
+    flex: 1 1 calc(50% - 5px);
+    /* Mantém 2 colunas */
+    font-size: 12px;
+    /* Reduz o tamanho da fonte */
+    padding: 8px;
+    /* Reduz o padding */
+  }
+}
+
+@media (max-width: 600px) {
+  .form {
+    flex-direction: column;
+    /* Altera para coluna em telas muito pequenas */
+    gap: 10px;
+    padding: 10px;
+    font-size: 12px;
+    /* Reduz o tamanho da fonte */
+  }
+
+  .form input {
+    flex: 1 1 100%;
+    /* Ocupa 100% da largura */
+    font-size: 12px;
+    /* Reduz o tamanho da fonte */
+    padding: 8px;
+    /* Reduz o padding */
+  }
+}
+
+/* Estilização dos inputs */
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+  flex-wrap: wrap;
+  /* Garante que os inputs se ajustem em telas menores */
+}
+
+@media (max-width: 600px) {
+  .flex {
+    flex-direction: column;
+    /* Empilha os inputs verticalmente em telas muito pequenas */
+    gap: 10px;
+  }
+}
+
+/* Estilização dos labels e inputs */
+.form label {
+  position: relative;
+  flex: 1 1 calc(50% - 6px);
+  /* Ajusta a largura dos labels para 50% com gap */
+}
+
+@media (max-width: 600px) {
+  .form label {
+    flex: 1 1 100%;
+    /* Faz os inputs ocuparem 100% da largura em telas menores */
+  }
+}
+
+.form label .input {
+  background-color: var(--color-bg-primary);
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(156, 154, 154, 0.397);
+  border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  .form label .input {
+    padding: 8px 8px 16px 8px;
+    /* Reduz o padding em telas menores */
+  }
+}
+
+.form label .input+span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+/* Efeito ao preencher o input */
+.form label .input:focus+span,
+.form label .input:valid+span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+  color: #003666;
+}
+
+/* Botão de envio */
+.submit {
+  border: none;
+  outline: none;
+  background-color: var(--color-border);
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .submit {
+    padding: 8px;
+    /* Reduz o padding em telas menores */
+    font-size: 14px;
+    /* Reduz o tamanho da fonte */
+  }
+}
+
+.submit:hover {
+  background-color: #003666;
+}
+
+/* Animação do título */
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+
+
+
+
+
+
+/* Estilo do select */
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  color: rgba(88, 87, 87, 0.822);
+  outline: none;
+  transition: 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+@media (max-width: 600px) {
+  select {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+select:hover {
+  background: #f1f1f1;
+}
+
+select:focus {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+
+
+
+
+
+
+
+/* Estilos da notificação */
+.notification {
+  margin-top: -10rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  position: relative;
+  width: 600px;
+  height: 520px;
+  background-color: #DCDCDC !important;
+  border-radius: 2rem;
+  overflow: hidden;
+  font-size: 16px;
+  --gradient: linear-gradient(to bottom, #003666, #003666, #02258e);
+  color: var(--color-text);
+}
+
+@media (max-width: 1200px) {
+  .notification {
+    width: 500px;
+    height: 480px;
+  }
+}
+
+@media (max-width: 800px) {
+  .notification {
+    width: auto;
+    height: auto;
+    margin: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .notification {
+    font-size: 14px;
+  }
+}
+
+.notification:before {
+  position: absolute;
+  content: "";
+  inset: 0.0625rem;
+  border-radius: 0.9375rem;
+  background-color: #fcfcfc;
+  z-index: 2;
+}
+
+.notification:after {
+  position: absolute;
+  content: "";
+  width: 0.25rem;
+  inset: 0.65rem auto 0.65rem 0.5rem;
+  border-radius: 0.125rem;
+  background: var(--gradient);
+  transition: transform 300ms ease;
+  z-index: 4;
+}
+
+.notification:hover:after {
+  transform: translateX(0.15rem);
+}
+
+
+
+
+
+
+
+
+
+/* Estilização do título da notificação */
+.notititle {
+  color: #003666;
+  padding: 0.65rem 0.25rem 0.4rem 1.25rem;
+  margin: 10px;
+  margin-top: 1.5rem;
+  font-weight: 700;
+  font-size: 2rem;
+  transition: transform 300ms ease;
+  z-index: 5;
+}
+
+@media (max-width: 600px) {
+  .notititle {
+    margin-top: 2.5rem;
+    font-size: 1.8rem;
+    padding: 0.5rem 0.25rem 0.3rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .notititle {
+    margin-top: 2.5rem;
+    font-size: 1.8rem;
+    padding: 0.5rem 0.25rem 0.3rem 1rem;
+  }
+}
+
+.notification:hover .notititle {
+  transform: translateX(0.15rem);
+}
+
+
+
+
+/* Estilização dos passos da notificação */
+.notibody {
+  color: var(--color-text);
+  padding: 10px;
+  margin: 20px;
+  transition: transform 300ms ease;
+  z-index: 5;
+}
+
+@media (max-width: 600px) {
+  .notibody {
+    padding: 8px;
+    margin: 15px;
+  }
+}
+
+.notification:hover .notibody {
+  transform: translateX(0.25rem);
+}
+
+/* Efeito de brilho */
+.notiglow,
+.notiborderglow {
+  position: absolute;
+  width: 20rem;
+  height: 20rem;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle closest-side at center, white, transparent);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.notification:hover .notiglow,
+.notification:hover .notiborderglow {
+  opacity: 0.1;
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ comunicado.titulo }}{% endblock %}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .paper {
+      background-color: white;
+      width: 210mm;
+      min-height: auto;
+      padding: 20mm;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ddd;
+      margin: auto;
+    }
+
+    .header {
+      text-align: left;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .header img {
+      max-width: 100px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      margin: 10px 0;
+      color: #004a99;
+    }
+
+    .header p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    .content {
+      margin-top: 20px;
+      margin-bottom: 4rem;
+    }
+
+    .content h2 {
+      font-size: 20px;
+      color: #004a99;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .content p {
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+    }
+
+    .logo p {
+      font-size: 10px;
+    }
+
+    .logo {
+      margin-bottom: 6rem;
+    }
+
+    .titulo h2 {
+      margin-bottom: 4rem;
+    }
+
+    .texte {
+      margin-bottom: 4rem;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .signature {
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .signature img {
+      font-size: 100px;
+      text-align: right;
+      margin-top: -10rem;
+      margin-right: -6rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="paper">
+    <div class="header">
+      <div class="logo">
+        <img src="{% static 'images/mere-allaitante-drapeau.jpg' %}" alt="Brasão do Gabão">
+        <p>UNIAO-TRABALHO-JUSTICIA</p>
+        <p>Republica Gabonesa</p>
+        <p>Embaixada do Gabao no Brasil</p>
+      </div>
+      <div class="publication-date">
+        <p>Brasília, {% now "d/m/Y" %}</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="titulo">
+        <h2>COMUNICADO OFICIAL</h2>
+      </div>
+      <div class="texte">
+        <p>{{ comunicado.conteudo }}</p>
+      </div>
+
+      <div class="signature">
+        <p>Chefe de Missão</p>
+        <p>Jacques Michel Moudoute-Bell, Embaixador</p>
+        <img src="{% static 'images/Black White Bold Modern Studio Logo.png' %}" alt="Assinatura do Embaixador">
+      </div>
+    </div>
+
+    <div class="footer">
+      <h3>Embaixada do Gabao no Brasil</h3>
+      <p>Endereço: SHIS QI 09 conjunto 11 casa 09, Lago Sul, Brasília, DF CEP: 71.625-110, Brasil</p>
+      <p>Telefone: (+55) 61 3248 3533 / (+55) 61 3248 3536</p>
+      <p>Fax: (+55) 61 3248 2241</p>
+      <p>E-mail: gabon@embgabon.org.br / bresil.embgabon@gmail.com</p>
+      <a href="{% url 'lista_comunicados' %}">Voltar para Comunicados</a>
+    </div>
+  </div>
+</body>
+
+</html>

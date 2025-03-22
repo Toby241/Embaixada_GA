@@ -1,0 +1,1245 @@
+:root {
+  /* Colors */
+  --geral: #003666;
+  --color-primary: rgba(0, 12, 36, 0.8);
+  --color-primary-dark: #208c61;
+  --color-bg-primary: #DCDCDC;
+  --color-bg-secondary: #242424;
+  --color-bg-footer: #151515;
+  --color-white: #ffffff;
+  --color-text: #676767;
+  --color-border: #373737;
+
+  /* Font & Typography */
+  --ff-body: "Roboto", serif;
+  --fs-sm: 1.4rem;
+  --fs-md: 1.6rem;
+  --fs-lg: 2rem;
+  --fs-xl: 2.4rem;
+  --fs-xxl: 3.2rem;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* z-index */
+  --zindex-menu: 1000;
+  --zindex-fixed: 1010;
+
+  /* Width & Height */
+  --width-container: 98rem;
+  --height-header: 10rem;
+  --height-header--scroll: 8rem;
+
+  /* Transition and box shadow */
+  --transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  --box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+/* Font size for large devices */
+@media screen and (min-width: 968px) {
+  :root {
+    --big-font-size: 3rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+
+
+
+/* CSS Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+ul,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-white);
+  font-weight: var(--fw-bold);
+}
+
+ul {
+  list-style-type: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+main {
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  font-family: var(--ff-body);
+  font-size: var(--fs-md);
+  color: var(--color-text);
+  margin-top: var(--height-header);
+  line-height: 1.2;
+}
+
+
+/* Reusable CSS
+  --------------------------------------------------------------*/
+.container {
+  width: 90%;
+  max-width: var(--width-container);
+  margin: auto;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.section__header {
+  margin: 2rem 0;
+  text-align: center;
+  margin-bottom: 10rem;
+}
+
+.section__header h2 {
+  font-size: 2.4rem;
+}
+
+
+.section__header span {
+  font-size: 1rem;
+}
+
+
+.section__title {
+  font-size: var(--fs-xl);
+  margin-bottom: 0.5rem;
+  color: var(--geral);
+}
+
+.section__subtitle {
+  font-weight: var(--fw-bold);
+  font-size: 1rem;
+  position: relative;
+}
+
+.section__subtitle::after {
+  position: absolute;
+  content: "";
+  width: 50%;
+  height: 0.5rem;
+  background-color: var(--color-primary);
+  bottom: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.d-grid {
+  display: grid;
+  gap: 3rem;
+}
+
+
+.btn--secondary {
+  background-color: red;
+  color: var(--color-bg-primary);
+}
+
+.btn--secondary:hover {
+  background-color: rgb(130, 7, 7);
+  color: var(--color-white);
+}
+
+
+
+
+/* Estilos base para o carrossel */
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 330px;
+  overflow: hidden;
+  background-color: black;
+}
+
+.wiper {
+  width: 100%;
+  height: 330px;
+}
+
+.swiper-slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 330px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Imagem de fundo */
+.slide-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  filter: brightness(50%);
+  z-index: 1;
+  transition: filter 0.3s ease-in-out;
+}
+
+/* Overlay escuro e intenso */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 330px;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Ao passar o mouse, o overlay escurece ainda mais */
+.swiper-slide:hover .image-overlay {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Texto com efeito de aparição suave e deslocamento */
+.slide-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 0 20px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* O texto aparece suavemente no slide ativo */
+.swiper-slide-active .slide-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Título com peso e efeito sombrio ao passar o mouse */
+.slide-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover no título: leve destaque e movimento */
+.slide-title:hover {
+  color: #bbb;
+  transform: translateY(-3px);
+}
+
+/* Descrição com efeito de fade e mudança de cor ao hover */
+.slide-description {
+  font-size: 1.1rem;
+  margin-bottom: 1.8rem;
+  opacity: 0.9;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+/* Hover na descrição: escurece levemente */
+.slide-description:hover {
+  opacity: 1;
+  color: #ccc;
+}
+
+/* Botão escuro, com efeito "sombrio" ao interagir */
+.slide-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Botão ao passar o mouse: fundo escuro sólido e leve zoom */
+.slide-button:hover {
+  background-color: white;
+  color: black;
+  border-color: white;
+  transform: scale(1.05);
+}
+
+
+
+
+/* Estilos responsivos */
+@media screen and (max-width: 1024px) {
+  .hero-carousel {
+    height: 250px;
+  }
+
+  .wiper,
+  .swiper-slide {
+    height: 250px;
+  }
+
+  .slide-image,
+  .image-overlay {
+    height: 250px;
+  }
+
+  .slide-title {
+    font-size: 2.5rem;
+  }
+
+  .slide-description {
+    font-size: 1.1rem;
+  }
+
+  .swiper-button-next {
+    width: 18px;
+    height: 18px;
+    font-size: 9px;
+    bottom: 15px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero-carousel {
+    height: 250px;
+  }
+
+  .wiper,
+  .swiper-slide {
+    height: 250px;
+  }
+
+  .slide-image,
+  .image-overlay {
+    height: 250px;
+  }
+
+  .slide-title {
+    font-size: 2rem;
+  }
+
+  .slide-description {
+    font-size: 1rem;
+  }
+
+  .swiper-button-next {
+    width: 16px;
+    height: 16px;
+    font-size: 8px;
+    bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero-carousel {
+    height: 230px;
+  }
+
+  .wiper,
+  .swiper-slide {
+    height: 230px;
+  }
+
+  .slide-image,
+  .image-overlay {
+    height: 230px;
+  }
+
+  .slide-title {
+    font-size: 1.5rem;
+  }
+
+  .slide-description {
+    font-size: 0.9rem;
+  }
+
+  .swiper-button-next {
+    width: 14px;
+    height: 14px;
+    font-size: 7px;
+    bottom: 5px;
+  }
+}
+
+
+
+
+.swiper-button-next {
+
+  width: 20px;
+  /* Ajuste la largeur */
+  height: 20px;
+  /* Ajuste la hauteur */
+  font-size: 10px;
+  /* Ajuste la taille de l'icône */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Fond semi-transparent */
+  border-radius: 50%;
+  /* Bouton arrondi */
+  color: white;
+  top: auto;
+  bottom: 20px;
+}
+
+.swiper-button-next::after {
+  font-size: 10px;
+  /* Ajuste o tamanho conforme necessário */
+  color: white;
+  /* Ajuste a cor se necessário */
+}
+
+/* Ajustement du bouton au survol */
+.swiper-button-next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+.swiper-button-prev {
+
+  width: 20px;
+  /* Ajuste la largeur */
+  height: 20px;
+  /* Ajuste la hauteur */
+  font-size: 10px;
+  /* Ajuste la taille de l'icône */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Fond semi-transparent */
+  border-radius: 50%;
+  /* Bouton arrondi */
+  color: white;
+  top: auto;
+  bottom: 20px;
+}
+
+.swiper-button-prev::after {
+  font-size: 10px;
+  /* Ajuste o tamanho conforme necessário */
+  color: white;
+  /* Ajuste a cor se necessário */
+}
+
+/* Ajustement du bouton au survol */
+.swiper-button-prev:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+
+
+
+
+
+
+.carousel-section {
+  padding: 10px;
+  background-color: white;
+}
+
+.carousel-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.card {
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 250px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  padding: 32px;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  background-color: var(--geral);
+  border-radius: 4px;
+}
+
+
+
+
+/* Responsividade para tablets */
+@media (max-width: 768px) {
+  .card {
+    width: 38px;
+    /* Reduz o tamanho da imagem para tablets */
+  }
+
+  .card {
+    font-size: 10px;
+    /* Reduz o tamanho da fonte para tablets */
+  }
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 480px) {
+  .card {
+    width: 32px;
+    /* Reduz o tamanho da imagem para dispositivos móveis */
+  }
+
+  .card {
+    font-size: 9px;
+    /* Reduz o tamanho da fonte para dispositivos móveis */
+  }
+}
+
+
+
+
+/* Tamanho padrão para telas grandes */
+.responsive-title {
+  font-size: 2.5rem;
+  /* 40px */
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Ajuste para tablets (médias telas) */
+@media (max-width: 768px) {
+  .responsive-title {
+    font-size: 2rem;
+    /* 32px */
+  }
+}
+
+/* Ajuste para celulares */
+@media (max-width: 480px) {
+  .responsive-title {
+    font-size: 1.5rem;
+    /* 24px */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.social-list {
+  display: flex;
+  gap: 1rem;
+  top: 1;
+  margin: 20px;
+  text-align: center;
+}
+
+.social-link {
+  font-size: 2rem;
+  color: var(--color-white);
+  transition: var(--transition);
+}
+
+
+.social-link:hover,
+.footer-contact:hover {
+  color: black;
+}
+
+
+
+/* Responsividade para tablets */
+@media (max-width: 768px) {
+
+  .social-link {
+    font-size: 10px;
+    /* Reduz o tamanho da fonte para tablets */
+  }
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 480px) {
+
+  .social-link {
+    font-size: 10px;
+    /* Reduz o tamanho da fonte para tablets */
+  }
+}
+
+
+
+
+
+.card::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 5px;
+  height: 100%;
+  z-index: -1;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.card:hover::before {
+  width: 100%;
+}
+
+.card:hover {
+  box-shadow: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  color: #e8e8e8;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.content .heading {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.content .para {
+  line-height: 1.5;
+}
+
+.content .btn {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+
+
+.content .btn:hover {
+  outline: 2px solid #e8e8e8;
+  background: transparent;
+  color: white;
+}
+
+.content .btn:active {
+  box-shadow: none;
+}
+
+
+
+
+/* Services
+  --------------------------------------------------------------*/
+
+#services {
+  margin-bottom: -5rem;
+  background-color: whitesmoke;
+}
+
+/* Estilos para a seção de serviços */
+.section_service {
+  padding: 4rem 0;
+  background-color: var(--color-bg-primary);
+  /* Fundo primário */
+}
+
+.service__wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.service__card {
+  background-color: var(--color-white);
+  /* Fundo branco para os cards */
+  padding: 2rem;
+  border: 1px solid #e0e0e0;
+  /* Borda sutil */
+  border-radius: 4px;
+  /* Bordas arredondadas */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.service__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  /* Sombra mais suave */
+  border-color: var(--color-primary);
+  /* Borda destacada ao passar o mouse */
+}
+
+.service__title {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  /* Cor geral para o título */
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.service__title i {
+  font-size: 1.75rem;
+  color: var(--color-primary);
+  /* Cor geral para ícones */
+}
+
+.service__sublist {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.service__sublist li {
+  font-size: 1rem;
+  color: var(--color-text-light);
+  /* Cor do texto secundário */
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.service__sublist li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  /* Cor geral para marcadores */
+  font-size: 1.2rem;
+}
+
+.service__link {
+  font-size: 1rem;
+  color: var(--color-primary);
+  /* Cor geral para links */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.service__link:hover {
+  color: var(--color-text);
+  /* Cor do texto principal ao passar o mouse */
+}
+
+.service__link i {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.service__link:hover i {
+  transform: translateX(5px);
+  /* Efeito de movimento no ícone */
+}
+
+
+
+
+.loader {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #003666, transparent);
+  overflow: hidden;
+}
+
+.loader::after {
+  content: '';
+  position: absolute;
+  translate: -200px 0;
+  width: 150px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #212121, transparent);
+  animation: slide 1s infinite;
+}
+
+@keyframes slide {
+  100% {
+    translate: 300px 0;
+  }
+}
+
+
+
+
+
+
+
+/* Removemos background-attachment para o JavaScript controlar o efeito */
+
+
+/* Contêiner Parallax */
+#visa-images {
+  width: 100%;
+  height: 250px;
+  background-image: url("../images/Visa-Services.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* Efeito Parallax */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+/* Filtro escuro para melhorar a leitura */
+#visa-images::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Suaviza a imagem */
+  z-index: 1;
+}
+
+/* Contêiner do texto */
+.visa-text-container {
+  position: relative;
+  z-index: 2;
+  padding: 15px 30px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+/* Estilizando o texto */
+#visa-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 8px;
+}
+
+#visa-images p {
+  font-size: 1rem;
+  color: white;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  #visa-images {
+    height: 180px;
+    /* Ajuste para telas menores */
+    background-attachment: scroll;
+    /* Remove parallax em celulares */
+  }
+
+  .visa-text-container {
+    padding: 10px 20px;
+    max-width: 90%;
+  }
+
+  #visa-text {
+    font-size: 1.2rem;
+  }
+
+  #visa-images p {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Animação para o texto */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efeito de overlay escuro sobre a imagem */
+@keyframes overlayIn {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  to {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Estilos para a seção de projetos */
+.section_project {
+  background-color: whitesmoke;
+  padding: 4rem 0;
+}
+
+.section__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section__title {
+  font-size: var(--fs-xl);
+  color: var(--geral);
+  margin-bottom: 2rem;
+}
+
+.section__subtitle {
+  font-size: var(--fs-md);
+  color: var(--color-light);
+}
+
+.project__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.project__card {
+  margin-top: 4rem;
+  flex: 1 1 30rem;
+  max-width: 30rem;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project__card:hover {
+  transform: translateY(-10px);
+}
+
+/* Overlay escuro */
+.project__card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+.project__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* Conteúdo centralizado e escondido por padrão */
+.project__card-content {
+  position: absolute;
+  z-index: 2;
+  padding: 2rem;
+  color: var(--color-white);
+  text-align: center;
+
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Exibir conteúdo ao passar o mouse */
+.project__card:hover .project__card-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project__title {
+  font-size: var(--fs-lg);
+  margin-bottom: 1rem;
+}
+
+.project__description {
+  font-size: var(--fs-md);
+  margin-bottom: 1.5rem;
+}
+
+.project__link {
+  font-size: var(--fs-sm);
+  color: var(--color-white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.project__link:hover {
+  color: var(--color-white);
+}
+
+.project__empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-light);
+}
+
+.project__empty-state i {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+
+
+
+
+/* Testimonials
+--------------------------------------------------------------*/
+.testimonial {
+  padding: 4rem 0;
+  background-color: whitesmoke;
+}
+
+.testimonial__wrapper {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.testimonial__card {
+  position: relative;
+  background-color: var(--color-bg-secondary);
+  box-shadow: var(--box-shadow);
+  padding: 3rem 5rem;
+  width: 100%;
+  max-width: 50rem;
+  text-align: center;
+  justify-self: center;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.testimonial__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  /* Ajuste a opacidade da imagem de fundo */
+  z-index: 1;
+}
+
+.testimonial__content {
+  position: relative;
+  z-index: 2;
+  color: var(--color-white);
+}
+
+.testimonial__name {
+  font-size: var(--fs-md);
+  margin-bottom: 0.5rem;
+}
+
+.testimonial__description {
+  font-size: var(--fs-sm);
+  margin-bottom: 1.5rem;
+}
+
+.testimonial__occupation {
+  font-size: var(--fs-xs);
+  color: var(--color-text-light);
+}
+
+
+
+
+
+
+/* Pagination */
+.swiper-pagination-bullet {
+  justify-content: center;
+  bottom: 0;
+  background-color: var(--color-text);
+  border-radius: 0;
+  width: 3rem;
+  height: 0.5rem;
+  margin: 0 5px;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white;
+}
+
+
+
+
+
+
+
+
+
+
+/* Seção de Contato */
+.contact-section {
+  width: 100%;
+  background-color: whitesmoke;
+  padding: 4rem 0;
+  /* Espaçamento interno */
+}
+
+.contact-container {
+  max-width: 1200px;
+  /* Largura máxima do contêiner */
+  margin: 0 auto;
+  /* Centraliza o contêiner */
+  padding: 0 1rem;
+  /* Padding lateral */
+}
+
+.contact-flex {
+  display: flex;
+  flex-direction: column;
+  /* Coluna por padrão (mobile first) */
+  align-items: center;
+  gap: 2rem;
+  /* Espaço entre o texto e o botão */
+  border-top: 1px solid var(--color-border);
+  padding-top: 3rem;
+  text-align: center;
+}
+
+.contact-text {
+  max-width: 45rem;
+  /* Largura máxima do texto */
+}
+
+.contact-title {
+  color: #003666;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  /* Espaçamento abaixo do título */
+}
+
+.contact-description {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilo do botão "Enviar E-mail" */
+.btn-Email {
+  background-color: red;
+  color: #fff;
+  padding: 1.4rem 2.4rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-Email:hover {
+  background-color: rgb(152, 0, 0);
+  transform: translateY(-3px);
+}
+
+/* Layout para telas grandes */
+@media (min-width: 768px) {
+  .contact-flex {
+    flex-direction: row;
+    /* Alinha texto e botão lado a lado */
+    justify-content: space-between;
+    /* Espaço entre texto e botão */
+    align-items: center;
+    text-align: left;
+    /* Alinha o texto à esquerda */
+  }
+
+  .contact-text {
+    max-width: 60%;
+    /* Largura máxima do texto */
+  }
+
+  .contact-btn {
+    flex-shrink: 0;
+    /* Impede que o botão encolha */
+  }
+}

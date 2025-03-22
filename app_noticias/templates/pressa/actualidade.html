@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notícias - Embaixada do Gabão</title>
+  <link rel="stylesheet" href="{% static 'css/actu.css' %}">
+
+
+  <!--= Remixicons =-->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+
+<body>
+  <header>
+    <div class="header-container">
+      <!-- LOGO E TÍTULO -->
+      <div class="logo-container">
+        <img src="{% static 'images/R (3).png' %}" alt="Logo" class="logo">
+        <h1 class="site-title">Embaixada do Gabão</h1>
+      </div>
+
+      <!-- MENU DESKTOP -->
+      <nav class="desktop-menu">
+        <ul class="menu-list">
+          <li><a href="{% url 'home' %}">Início</a></li>
+          <li><a href="{% url 'sobre' %}">Sobre</a></li>
+          <li><a href="#">Serviços</a></li>
+          <li><a href="{% url 'gabao' %}">O Gabão</a></li>
+        </ul>
+      </nav>
+
+      <!-- BOTÃO DE NEWSLETTER -->
+      <div class="auth-buttons">
+        <button id="newsletter-button">Newsletter</button>
+      </div>
+      <!-- BOTÃO MENU MOBILE -->
+      <button class="menu-toggle" id="menu-toggle">
+        <i class="ri-menu-3-line"></i>
+      </button>
+    </div>
+
+    <!-- MENU MOBILE -->
+    <nav class="mobile-menu" id="mobile-menu">
+      <button class="close-menu" id="close-menu">
+        <i class="ri-close-line"></i>
+      </button>
+      <ul class="mobile-menu-list">
+        <li><a href="{% url 'home' %}">Início</a></li>
+        <li><a href="{% url 'sobre' %}">Sobre</a></li>
+        <li><a href="#">Serviços</a></li>
+        <li><a href="{% url 'gabao' %}">O Gabão</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <script>
+
+    // Script para o modal de newsletter
+    document.addEventListener("DOMContentLoaded", () => {
+      const newsletterButton = document.getElementById("newsletter-button");
+      const modalOverlay = document.getElementById("modal-overlay");
+      const closeModal = document.getElementById("close-modal");
+
+      // Abrir modal
+      newsletterButton.addEventListener("click", () => {
+        modalOverlay.style.display = "flex";
+      });
+
+      // Fechar modal ao clicar no botão de fechar
+      closeModal.addEventListener("click", () => {
+        modalOverlay.style.display = "none";
+      });
+
+      // Fechar modal ao clicar fora do formulário
+      modalOverlay.addEventListener("click", (e) => {
+        if (e.target === modalOverlay) {
+          modalOverlay.style.display = "none";
+        }
+      });
+    });
+
+
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuToggle = document.getElementById("menu-toggle");
+      const closeMenu = document.getElementById("close-menu");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const body = document.body;
+
+      // Abrir menu mobile
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.add("active");
+        body.classList.add("menu-open");
+      });
+
+      // Fechar menu mobile
+      closeMenu.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+        body.classList.remove("menu-open");
+      });
+
+      // Fechar ao clicar em um link
+      mobileMenu.addEventListener("click", (e) => {
+        if (e.target.tagName === "A") {
+          mobileMenu.classList.remove("active");
+          body.classList.remove("menu-open");
+        }
+      });
+    });
+  </script>
+
+  <!-- Modal de Newsletter -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <button class="close-modal" id="close-modal">
+        <i class="ri-close-line"></i>
+      </button>
+      <form class="newsletter-form" method="post" aria-label="Formulário de inscrição na newsletter">
+        {% csrf_token %}
+        <h1 class="newsletter-title">Newsletter Embaixada GA</h1>
+        <p class="newsletter-description"> Inscreva-se agora na nossa newsletter e fique sempre informado.
+          Cadastre-se com seu melhor e-mail e não perca nada
+        </p>
+        <div class="newsletter-input-group">
+          <input placeholder="Enter your email" type="email" name="email" id="email-address" required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Endereço de e-mail">
+          <button type="submit">Cadastre-se</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-container">
+    <main>
+      <section class="ultimas-noticias">
+        <h2>Notícias da Embaixada</h2>
+        <div class="noticias-grid">
+          {% for noticia in noticias %}
+          <a href="{% url 'ler_noticia' noticia.id %}" target="_blank" rel="noopener noreferrer" class="noticia-link">
+            <article class="noticia">
+              {% if noticia.imagem %}
+              <div class="noticia-imagem-container">
+                <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}" loading="lazy" width="300" height="200">
+              </div>
+              {% endif %}
+              <div class="noticia-content">
+                <h3>{{ noticia.titulo }}</h3>
+                <p>{{ noticia.resumo }}</p>
+                <div class="noticia-meta">
+                  <time datetime="{{ noticia.data_publicacao|date:'Y-m-d H:i' }}">
+                    {{ noticia.data_publicacao|date:"d/m/Y H:i" }}
+                  </time>
+                </div>
+              </div>
+            </article>
+          </a>
+          {% endfor %}
+        </div>
+      </section>
+    </main>
+
+    <!-- Sidebar (Barra Vertical) -->
+    <aside class="sidebar">
+      <h3>Outros media</h3>
+      <ul>
+        <li>
+          <a href="https://presidence.ga/communique-de-presse-com-pr/">
+            <img src="{% static 'images/Design sem nome (12).png' %}" alt="Presidência da República Gabonesa">
+            Presidência da República Gabonesa
+          </a>
+        </li>
+        <li>
+          <a href="https://gabon24.tv/en/homepage-english/">
+            <img src="{% static 'images/LOGO_2-e1675877413242.png' %}" alt="Gabon 24 TV">
+            Gabon 24 TV
+          </a>
+        </li>
+        <li>
+          <a href="https://groupegabontelevisions.net/">
+            <img src="{% static 'images/icon.jpg' %}" alt="Gabon Television">
+            Gabon Television
+          </a>
+        </li>
+        <li>
+          <a href="https://africa24tv.com/">
+            <img src="{% static 'images/AFRICA_24_2011 (1).webp' %}" alt="Africa 24 TV">
+            Africa 24 TV
+          </a>
+        </li>
+        <li>
+          <a href="https://www.bbc.com/afrique">
+            <img src="{% static 'images/p0gsjjjl.png' %}" alt="BBC Afrique">
+            BBC Afrique
+          </a>
+        </li>
+        <li>
+          <a href="https://medias241.com/">
+            <img src="{% static 'images/logo-medias241.webp' %}" alt="Media 241">
+            Media 241
+          </a>
+        </li>
+        <li>
+          <a href="https://www.rfi.fr/fr/afrique/">
+            <img src="{% static 'images/th (1).jpg' %}" alt="RFI Afrique">
+            RFI Afrique
+          </a>
+        </li>
+        <li>
+          <a href="https://www.jeuneafrique.com/">
+            <img src="{% static 'images/Logo-Jeune-Afrique.jpg' %}" alt="Jeune Afrique">
+            Jeune Afrique
+          </a>
+        </li>
+        <li>
+          <a href="https://www.aljazeera.com/africa/?utm_source=chatgpt.com">
+            <img src="{% static 'images/9487c4c4299346380f6c91b96df0143c--online-apps-al-jazeera-english.jpg' %}"
+              alt="Aljazeera">
+            Aljazeera
+          </a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="copyright">
+        <p>&copy; 2025 Embaixada do Gabao no Brasil. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  </div>
+</body>
+
+</html>

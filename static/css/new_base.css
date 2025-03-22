@@ -1,0 +1,1261 @@
+:root {
+  /* Colors */
+  --geral: #003666;
+  --color-primary: rgba(0, 12, 36, 0.8);
+  --color-primary-dark: #208c61;
+  --color-bg-primary: #DCDCDC;
+  --color-bg-secondary: #242424;
+  --color-bg-footer: #151515;
+  --color-white: #ffffff;
+  --color-text: #676767;
+  --color-border: #373737;
+
+  /* Font & Typography */
+  --ff-body: "Roboto", serif;
+  --fs-sm: 1.4rem;
+  --fs-md: 1.6rem;
+  --fs-lg: 2rem;
+  --fs-xl: 2.4rem;
+  --fs-xxl: 3.2rem;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* z-index */
+  --zindex-menu: 1000;
+  --zindex-fixed: 1010;
+
+  /* Width & Height */
+  --width-container: 98rem;
+  --height-header: 10rem;
+  --height-header--scroll: 8rem;
+
+  /* Transition and box shadow */
+  --transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  --box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+/* CSS Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+ul,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-white);
+  font-weight: var(--fw-bold);
+}
+
+ul {
+  list-style-type: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+main {
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  font-family: var(--ff-body);
+  font-size: var(--fs-md);
+  color: var(--color-text);
+  margin-top: var(--height-header);
+  line-height: 1.2;
+
+}
+
+
+
+.container {
+  width: 90%;
+  max-width: var(--width-container);
+  margin: 0 auto;
+}
+
+
+
+
+
+
+.nav__link {
+  color: var(--color-text);
+  text-decoration: none;
+  padding: 0.5rem 0.1rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+}
+
+
+.nav__link:hover {
+  color: var(--color-primary);
+}
+
+
+/* Container */
+.containere {
+  width: 90%;
+  max-width: var(--width-container);
+  margin: auto;
+}
+
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 1rem;
+}
+
+/* Header */
+.header {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--height-header);
+  z-index: 1000;
+  box-shadow: var(--box-shadow);
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+
+.nav__brand {
+  display: flex;
+  /* Garante que a imagem e o texto fiquem lado a lado */
+  align-items: center;
+  /* Centraliza verticalmente */
+  gap: 0.5rem;
+  /* Espaço entre a imagem e o texto */
+  text-decoration: none;
+  /* Remove sublinhado do link */
+  margin-left: -12rem;
+}
+
+.nav__logo {
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  /* Remove margens indesejadas */
+  padding: 0;
+  /* Remove paddings indesejados */
+}
+
+.nav__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: black;
+  margin: 0;
+  /* Remove margens indesejadas */
+  line-height: 1.2;
+  /* Controla o espaçamento entre as linhas */
+}
+
+/* Botões (Direita) */
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* Espaço consistente entre os botões */
+  margin-right: -20rem;
+}
+
+/* Logo e Título (Esquerda) */
+.nav__left {
+  display: flex;
+  align-items: center;
+  /* Centraliza verticalmente */
+  gap: 0.5rem;
+  /* Espaço consistente entre a imagem e o texto */
+}
+
+/* Centralizado (Menu + Barra de Pesquisa) */
+.nav__center {
+  display: flex;
+  align-items: center;
+  gap: 8rem;
+  /* Espaço consistente entre os itens */
+}
+
+
+
+/* Menu de Navegação */
+.nav__menu {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+}
+
+
+
+.nav__link:hover {
+  color: var(--color-primary);
+}
+
+.nav__link:hover::after {
+  width: 100%;
+}
+
+
+
+
+
+/* Estilos base para o submenu */
+.nav__submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 400px;
+  /* Largura fixa */
+  border: solid white 0.4px;
+  background-color: #DCDCDC;
+  /* Fundo transparente para permitir os efeitos */
+  padding: 1rem;
+  z-index: 1000;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.nav__submenu.active {
+  display: block;
+}
+
+/* Estilo dos itens do submenu */
+.nav__subitem {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.nav__sublink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  padding: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.nav__sublink:hover {
+  color: var(--color-text);
+}
+
+/* Efeitos de fundo animados (estilo "Taiwan") */
+.nav__sublink::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #003666, #212121);
+  z-index: -1;
+  transition: transform 0.5s ease;
+  transform: scale(0);
+}
+
+.nav__sublink:hover::before {
+  transform: scale(1);
+}
+
+/* Ícones SVG */
+.nav__sublink svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-text);
+  transition: fill 0.3s ease;
+}
+
+.nav__sublink:hover svg {
+  fill: var(--color-text);
+}
+
+/* Botão "See more" (opcional) */
+.nav__submenu-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #ffffff;
+  color: var(--geral);
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav__submenu-button:hover {
+  background-color: #f0f4ff;
+  color: var(--geral);
+}
+
+
+
+
+
+
+/* Barra de Pesquisa */
+.nav__search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav__input {
+  width: 200px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid var(--color-primary);
+  outline: none;
+  padding: 0 10px;
+  background-color: transparent;
+  font-size: 1rem;
+  color: var(--color-text);
+  transition: var(--transition);
+  gap: 1rem;
+}
+
+.nav__input::placeholder {
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+.nav__search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  fill: var(--color-primary);
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+
+
+
+.btn-primary,
+.dropdown-toggle,
+.btn {
+  background-color: transparent;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  background-color: transparent;
+  color: #212121;
+}
+
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--color-white);
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn:hover svg {
+  transform: scale(1.1);
+}
+
+.nav__btn {
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--geral);
+  color: var(--color-white);
+  border: none;
+  border-radius: 10px;
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.nav__btn:hover {
+  transform: translateY(-2px);
+}
+
+.nav__btn svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--color-white);
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav__btn:hover svg {
+  transform: scale(1.1);
+}
+
+/* Responsividade */
+@media screen and (max-width: 968px) {
+
+  .nav__center,
+  .nav__right {
+    display: none;
+  }
+
+
+}
+
+
+
+.nav__toggle {
+  display: none;
+  /* Oculta o botão por padrão */
+}
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+
+
+
+
+  .nav__brand {
+    display: flex;
+    /* Garante que a imagem e o texto fiquem lado a lado */
+    align-items: center;
+    /* Centraliza verticalmente */
+    gap: 0.5rem;
+    /* Espaço entre a imagem e o texto */
+    text-decoration: none;
+    /* Remove sublinhado do link */
+    margin-left: 0rem;
+  }
+
+
+  .nav__logo {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    /* Remove margens indesejadas */
+    padding: 0;
+    /* Remove paddings indesejados */
+  }
+
+  .nav__title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    margin: 0;
+    /* Remove margens indesejadas */
+    line-height: 1.2;
+    /* Controla o espaçamento entre as linhas */
+  }
+}
+
+
+
+
+
+
+/* Menu Retrátil */
+.nav__menu--mobile {
+  display: none;
+  flex-direction: column;
+  background-color: #ffffff;
+  height: 100%;
+  /* Fundo branco */
+  position: absolute;
+  top: var(--height-header);
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* Sombra mais suave */
+  z-index: 1000;
+  border-radius: 8px;
+  /* Bordas arredondadas */
+  border: 1px solid #e0e0e0;
+  /* Borda sutil */
+  max-height: 80vh;
+  /* Altura máxima */
+  overflow-y: auto;
+  /* Scroll se necessário */
+}
+
+.nav__menu--mobile.active {
+  display: flex;
+}
+
+/* Menu principal no mobile */
+.nav__menu--mobile .nav__menu {
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+/* Itens do menu */
+.nav__menu--mobile .nav__item {
+  border-bottom: 1px solid #e0e0e0;
+  /* Borda sutil entre os itens */
+  padding: 0.75rem 0;
+  transition: background-color 0.3s ease;
+}
+
+.nav__menu--mobile .nav__item:last-child {
+  border-bottom: none;
+  /* Remove a borda do último item */
+}
+
+.nav__menu--mobile .nav__item:hover {
+  background-color: #f8f8f8;
+  /* Fundo ao passar o mouse */
+}
+
+/* Links do menu */
+.nav__menu--mobile .nav__link {
+  color: #333333;
+  /* Cor do texto */
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  /* Espaço entre ícone e texto */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav__menu--mobile .nav__link:hover {
+  color: var(--color-primary);
+  /* Cor ao passar o mouse */
+}
+
+/* Ícones nos links */
+.nav__menu--mobile .nav__link i {
+  font-size: 1.2rem;
+  color: #666666;
+  /* Cor dos ícones */
+  transition: color 0.3s ease;
+}
+
+.nav__menu--mobile .nav__link:hover i {
+  color: var(--color-primary);
+  /* Cor dos ícones ao passar o mouse */
+}
+
+/* Submenu no mobile */
+.nav__menu--mobile .nav__submenu {
+  display: none;
+  position: static;
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-left: 2px solid var(--color-primary);
+  /* Destaque para o submenu */
+}
+
+.nav__menu--mobile .nav__item:hover .nav__submenu {
+  display: block;
+}
+
+/* Itens do submenu */
+.nav__menu--mobile .nav__subitem {
+  padding: 0.5rem 0;
+}
+
+.nav__menu--mobile .nav__subitem a {
+  color: #555555;
+  /* Cor do texto do submenu */
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.nav__menu--mobile .nav__subitem a:hover {
+  color: var(--color-primary);
+  /* Cor ao passar o mouse */
+}
+
+/* Ícones no submenu */
+.nav__menu--mobile .nav__subitem a i {
+  font-size: 1rem;
+  color: #777777;
+  /* Cor dos ícones */
+  transition: color 0.3s ease;
+}
+
+.nav__menu--mobile .nav__subitem a:hover i {
+  color: var(--color-primary);
+  /* Cor dos ícones ao passar o mouse */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Botão "Entrar" */
+.btn-entrar {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+
+/* Responsividade */
+@media screen and (max-width: 968px) {
+  .nav__menu {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: block;
+  }
+}
+
+
+
+/* Estilo para o item de navegação dropdown */
+.nav-item.dropdown.me-1 {
+  position: relative;
+}
+
+/* Estilo para o link dropdown */
+.nav-link.dropdown-toggle {
+  color: var(--color-text);
+  text-decoration: none;
+  padding: 0.6rem 0.2rem;
+  /* Pequeno ajuste no espaçamento */
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.2s ease;
+  position: relative;
+}
+
+/* Efeito sutil ao passar o mouse */
+.nav-link.dropdown-toggle:hover {
+  color: var(--color-primary);
+  /* Cor de destaque */
+  transform: translateY(-2px);
+  /* Pequeno efeito de elevação */
+}
+
+/* Estilo claro para o menu dropdown */
+.dropdown-menu {
+  background-color: #f8f9fa;
+  /* Cor de fundo clara */
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 150px;
+
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-menu .dropdown-item {
+  color: #333;
+  padding: 10px 15px;
+  transition: background 0.3s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #e9ecef;
+  color: #000;
+}
+
+.dropdown-menu .dropdown-item:focus {
+  background-color: #dee2e6;
+  color: #000;
+}
+
+.dropdown-menu-dark {
+  background-color: #ffffff !important;
+  /* Força um fundo claro */
+}
+
+
+
+
+
+
+/* Container do formulário */
+.form-container {
+  background: #ffffff;
+  padding: 24px !important;
+  width: 350px;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  display: none;
+  /* Inicialmente escondido */
+  position: fixed;
+  /* Fixa o container na tela */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Centraliza o container */
+  z-index: 1000;
+  /* Garante que ele fique na frente de outros elementos */
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Quando a classe 'show' for adicionada, o container aparecerá */
+.form-container.show {
+  display: flex;
+  /* Exibe o container */
+  opacity: 1;
+  /* Torna o container visível */
+  transform: translate(-50%, -50%) scale(1);
+  /* Garante que o container não seja movido */
+}
+
+/* Botão principal (Dropdown) */
+.dropdown-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  color: var(--text-color);
+}
+
+.dropdown-button i {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-button:hover {
+  transform: translateY(-2px);
+  color: #212121;
+}
+
+/* Grupo de input */
+.input-group {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333333;
+  font-size: 1rem;
+}
+
+.input-field {
+  width: 100%;
+  border: 2px solid #e0e0e0;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  outline: none;
+  border-radius: 8px !important;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-field:focus {
+  border-color: #003666;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+/* Checkbox estilizado */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.custom-checkbox {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #003666;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-checkbox:checked {
+  background-color: #003666;
+  border-color: #003666;
+}
+
+.custom-checkbox:checked::before {
+  content: '✔';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+}
+
+/* Botão de login */
+.login-button {
+  width: 100%;
+  background-color: #003666;
+  color: white;
+  border: none;
+  padding: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease-in-out;
+  box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.login-button:hover {
+  background-color: #002244;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 🏠 Sidebar com um design mais moderno */
+.custom-sidebar {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  /* Fora da tela inicialmente */
+  width: 350px;
+  height: 100%;
+  background: #ffffff;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+  transition: right 0.4s ease-in-out;
+  z-index: 1000;
+  border-radius: 15px 0 0 15px;
+  overflow-y: auto;
+  /* Permite rolagem se necessário */
+}
+
+.custom-sidebar.active {
+  right: 0;
+  /* Exibe a sidebar */
+}
+
+/* 🏷️ Cabeçalho estilizado */
+.custom-sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: var(--geral);
+  color: white;
+  font-weight: bold;
+  border-radius: 15px 0 0 0;
+}
+
+.custom-sidebar-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* ❌ Botão de fechar estiloso */
+.custom-close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.custom-close-btn:hover {
+  transform: rotate(90deg);
+}
+
+/* 📜 Conteúdo da sidebar */
+.custom-sidebar-body {
+  padding: 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* 🎭 Overlay com efeito de desfoque */
+#custom-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  /* Dá um efeito mais sofisticado */
+  z-index: 999;
+  transition: opacity 0.3s ease;
+}
+
+/* 🎉 Estilização dos eventos */
+.lista-evento {
+  margin-top: 15px;
+}
+
+.evento-item {
+  background: #f8f9fa;
+  border-left: 4px solid var(--geral);
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.evento-item:hover {
+  transform: scale(1.02);
+  background: #eef3ff;
+}
+
+.evento-titulo {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--geral);
+  margin-bottom: 5px;
+}
+
+.evento-item p {
+  margin: 5px 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.text-muted {
+  font-size: 14px;
+  text-align: center;
+  color: #aaa;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Footer geral */
+.footer {
+  background-color: var(--color-bg-footer);
+  /* Cor de fundo mais suave */
+  color: #333333;
+  padding: 4rem 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.footer__wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* Quatro colunas para seções */
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* Centraliza o conteúdo */
+}
+
+.footer__content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-transform: uppercase;
+}
+
+.footer__social-list {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.footer__social-item a {
+  color: white;
+  font-size: 1.5rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.footer__social-item a:hover {
+  color: #00aaff;
+  /* Efeito hover azul */
+}
+
+/* Contatos */
+.footer__contact-info {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.footer__contact a {
+  color: #003666;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.footer__contact a:hover {
+  color: #00aaff;
+  /* Efeito hover azul */
+}
+
+/* Mapa */
+.footer__map iframe {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.copy {
+  text-align: center;
+  margin-top: 3rem;
+  grid-column: span 4;
+  /* Faz com que o copyright ocupe toda a largura */
+}
+
+.footer__copyright {
+  font-size: 0.875rem;
+  color: #666666;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .footer__wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    /* Duas colunas em telas menores */
+  }
+}
+
+@media (max-width: 768px) {
+  .footer__wrapper {
+    grid-template-columns: 1fr;
+    /* Uma coluna em telas muito pequenas */
+    padding: 0 1rem;
+  }
+
+  .footer__title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer__social-list {
+    justify-content: center;
+  }
+
+  .footer__contact-info {
+    font-size: 0.9rem;
+  }
+
+  .footer__map iframe {
+    height: 150px;
+  }
+
+  .footer__copyright {
+    font-size: 0.75rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/* Scrollbar
+    --------------------------------------------------------------*/
+::-webkit-scrollbar {
+  width: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-text);
+  border-radius: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text);
+}
+
+
+
+
+
+
+
+/* Font size for large devices */
+@media screen and (min-width: 968px) {
+  :root {
+    --big-font-size: 3rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+.error-messages {
+  background-color: #ffdddd;
+  color: #d8000c;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.error {
+  font-weight: bold;
+}

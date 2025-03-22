@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Succès</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-gray-900">
+  <div class="max-w-xl w-full mx-auto bg-gray-900 rounded-xl overflow-hidden">
+    <div class="max-w-md mx-auto pt-12 pb-14 px-5 text-center">
+      <div class="inline-flex items-center justify-center w-12 h-12 mb-5 rounded-full">
+        <svg viewBox="0 0 48 48" height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+          <linearGradient id="successGradient" gradientUnits="userSpaceOnUse" x1="37.081" y1="10.918" x2="10.918"
+            y2="37.081">
+            <stop offset="0" stop-color="#60fea4" />
+            <stop offset="1" stop-color="#fff" />
+          </linearGradient>
+          <circle fill="url(#successGradient)" cx="24" cy="24" r="18.5" />
+          <path
+            d="M35.401,38.773C32.248,41.21,28.293,42.66,24,42.66C13.695,42.66,5.34,34.305,5.34,24 c0-2.648,0.551-5.167,1.546-7.448"
+            stroke-width="3" stroke="#10e36c" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M12.077,9.646C15.31,6.957,19.466,5.34,24,5.34c10.305,0,18.66,8.354,18.66,18.66 c0,2.309-0.419,4.52-1.186,6.561"
+            stroke-width="3" stroke="#10e36c" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <polyline points="16.5,23.5 21.5,28.5 32,18" stroke-width="3" stroke="#10e36c" fill="none"
+            stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <h4 class="text-xl text-gray-100 font-semibold mb-5">Succès!</h4>
+      <p class="text-gray-300 font-medium">Vos données ont bien été envoyées pour analyse.</p>
+    </div>
+    <div class="pt-5 pb-6 px-6 text-right bg-gray-800 -mb-2">
+      <a href="{% url 'cadastro' %}"
+        class="inline-block w-full sm:w-auto py-3 px-5 mb-2 mr-4 text-center font-semibold leading-6 text-gray-200 bg-gray-500 hover:bg-gray-400 rounded-lg transition duration-200">Retour</a>
+      <a href="#"
+        class="inline-block w-full sm:w-auto py-3 px-5 mb-2 text-center font-semibold leading-6 text-blue-50 bg-green-500 hover:bg-green-600 rounded-lg transition duration-200">Temoins</a>
+    </div>
+  </div>
+
+
+</body>
+
+
+</html>

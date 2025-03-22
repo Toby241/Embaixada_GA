@@ -1,0 +1,340 @@
+{% extends "home/base.html" %}
+
+{% load static %}
+{% block title %}Embaixada - Meu App Django{% endblock %}
+
+{% block content %}
+
+<style>
+  /* Seções */
+  .section {
+    padding: 4rem;
+  }
+
+  .section__header {
+    margin-bottom: 50px;
+  }
+
+  .section__title {
+    display: none;
+    font-size: 2.5rem;
+    color: #003666;
+    margin-bottom: 25px;
+    /* Aumentei a margem inferior */
+  }
+
+  .section__subtitle {
+    font-size: 4rem !important;
+    color: #003666 !important;
+    margin-bottom: 30px;
+    /* Adicionei margem inferior */
+  }
+
+  /* Estilo do conteúdo "Sobre a Embaixada" */
+  .about__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .about__title {
+    font-size: 3.2rem;
+    color: #003666;
+    margin-bottom: 20px;
+    /* Adicionei margem inferior */
+  }
+
+  .about__description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 30px;
+    /* Adicionei margem inferior */
+  }
+
+  .btn {
+    display: inline-block;
+    background-color: #003666;
+    color: #fff;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-bottom: 20px;
+    /* Adicionei margem inferior */
+  }
+
+  .btn:hover {
+    background-color: #00509e;
+  }
+
+  /* Estilo das habilidades em dois cards separados */
+  .skills-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    /* Adicionei margem inferior */
+  }
+
+  .skills-card {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 45%;
+    text-align: left;
+    margin-bottom: 20px;
+    /* Adicionei margem inferior */
+  }
+
+  .skills__subtitle {
+    font-size: 1.6rem;
+    color: #003666;
+    margin-bottom: 15px;
+    /* Aumentei a margem inferior */
+  }
+
+  .skills__list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    /* Adicionei margem inferior */
+  }
+
+  .skills__item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    /* Adicionei margem inferior */
+  }
+
+  .skills__item i {
+    color: #00509e;
+    margin-right: 10px;
+  }
+
+  /* Contato */
+  .contact {
+    background-color: #dae3f3;
+    padding: 80px 0;
+  }
+
+  .contact__wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 40px;
+    /* Adicionei margem inferior */
+  }
+
+  .contact__info {
+    flex: 1;
+    text-align: left;
+  }
+
+  .contact__title {
+    font-size: 1.8rem;
+    color: #003666;
+    margin-bottom: 20px;
+    /* Aumentei a margem inferior */
+  }
+
+  .contact__list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    /* Adicionei margem inferior */
+  }
+
+  .contact__item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    /* Adicionei margem inferior */
+  }
+
+  .contact__item i {
+    color: #00509e;
+    margin-right: 10px;
+  }
+
+  /* Formulário */
+  .contact__form {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    /* Adicionei margem inferior */
+  }
+
+  .contact__form label {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    /* Aumentei a margem inferior */
+    color: #333;
+  }
+
+  .contact__form input,
+  .contact__form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    /* Adicionei margem inferior */
+  }
+
+  .contact__form button {
+    background-color: #003666;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-bottom: 20px;
+    /* Adicionei margem inferior */
+  }
+
+  .contact__form button:hover {
+    background-color: #00509e;
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+
+    .about__wrapper,
+    .contact__wrapper {
+      flex-direction: column;
+    }
+
+    .skills-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .skills-card {
+      width: 80%;
+      margin-bottom: 20px;
+      /* Adicionei margem inferior */
+    }
+  }
+</style>
+<main class="main">
+  <section id="about" class="section about">
+    <div class="container">
+      <div class="section__header">
+        <h2 class="section__title">Sobre a Embaixada</h2>
+        <span class="section__subtitle"></span>
+      </div>
+      <div class="d-grid about__wrapper">
+        <div class="about__content">
+          <h3 class="about__title">Embaixada do Gabão no Brasil Promovendo Relações Bilaterais.</h3>
+          <p class="about__description">
+            A Embaixada do Gabão no Brasil é a representação diplomática da República Gabonesa no país, responsável
+            por fortalecer os laços políticos, econômicos, culturais e sociais entre o Gabão e o Brasil. Localizada em
+            Brasília, a Embaixada trabalha para promover cooperação em áreas como comércio, educação, turismo e
+            desenvolvimento sustentável, além de prestar assistência consular aos cidadãos gaboneses no Brasil.
+          </p>
+          <a href="#" class="btn btn--primary">Saiba Mais</a>
+        </div>
+        <div class="skills">
+          <div class="skills__wrapper">
+            <div class="skills__content">
+              <h4 class="skills__subtitle">Diplomacia e Relações Internacionais</h4>
+              <ul class="skills__list">
+                <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>Promoção de acordos bilaterais</li>
+                <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>Cooperação política e estratégica</li>
+                <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>Participação em fóruns internacionais</li>
+                <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>Defesa dos interesses do Gabão no Brasil
+                </li>
+              </ul>
+            </div>
+            <div class="skills__content">
+              <h4 class="skills__subtitle">Serviços Consulares</h4>
+              <ul class="skills__list">
+                <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>Emissão de vistos e passaportes</li>
+                <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>Assistência a cidadãos gaboneses</li>
+                <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>Legalização de documentos</li>
+                <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>Informações sobre o Gabão</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section__header">
+        <h2 class="section__title">Contato</h2>
+        <span class="section__subtitle">Entre em contato conosco</span>
+      </div>
+      <div class="contact__card">
+        <div class="contact__wrapper">
+          <div class="contact__info">
+            <h3 class="contact__title">Informações de Contato</h3>
+            <p class="contact__description">
+              Estamos à disposição para esclarecer dúvidas, fornecer informações e prestar assistência consular. Entre
+              em contato através dos canais abaixo:
+            </p>
+            <ul class="contact__list">
+              <li class="contact__item">
+                <i class="ri-map-pin-fill"></i>
+                <strong>Endereço:</strong> SHIS QI 09, Conjunto 15, Casa 20 - Brasília, DF, Brasil
+              </li>
+              <li class="contact__item">
+                <i class="ri-phone-fill"></i>
+                <strong>Telefone:</strong> +55 (61) 3248-3838
+              </li>
+              <li class="contact__item">
+                <i class="ri-mail-fill"></i>
+                <strong>E-mail:</strong> gabao.embaixada@embaixada.org.br
+              </li>
+              <li class="contact__item">
+                <i class="ri-time-fill"></i>
+                <strong>Horário de Funcionamento:</strong> Segunda a Sexta, das 9h às 17h
+              </li>
+            </ul>
+          </div>
+
+          <form class="contact__form">
+            <label class="block">
+              <span class="mb-1">Nome</span>
+              <input type="text" placeholder="Seu nome" required
+                class="block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-75 focus:dark:ring-default-600 dark:bg-gray-100">
+            </label>
+            <label class="block">
+              <span class="mb-1">E-mail</span>
+              <input type="email" placeholder="seuemail@exemplo.com" required
+                class="block w-full rounded-md shadow-sm focus:ring focus:ring-opacity-75 focus:dark:ring-default-600 dark:bg-gray-100">
+            </label>
+            <label class="block">
+              <span class="mb-1">Mensagem</span>
+              <textarea rows="3" placeholder="Escreva sua mensagem aqui" required
+                class="block w-full rounded-md focus:ring focus:ring-opacity-75 focus:dark:ring-default-600 dark:bg-gray-100"></textarea>
+            </label>
+            <button type="submit" class="btn btn--primary">Enviar Mensagem</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+<script src="{% static 'js/base.js' %}"></script>
+{% endblock %}
