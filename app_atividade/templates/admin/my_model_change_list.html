@@ -1,0 +1,57 @@
+{% extends "admin/change_list.html" %}
+{% block content %}
+<div>
+  <h2>Painel servicos</h2>
+
+
+  <a href="https://app.smartsupp.com/app/dashboard/conversations/coZW8OTEUPVmg" class="custom-button" target="_blank">
+    <i class="fas fa-comment-dots"></i> Ir para o Chat
+  </a>
+
+  <style>
+    h2 {
+      margin-left: 4rem;
+
+    }
+
+    .custom-button {
+      float: right;
+      margin-right: 3rem;
+      display: inline-block;
+      padding: 10px 10px;
+      background-color: transparent;
+      border: solid 1px rgb(32, 145, 220);
+      /* Cor de fundo verde */
+      color: white;
+      /* Cor do texto */
+      font-size: 12px;
+      /* Tamanho da fonte */
+      text-align: center;
+      /* Alinhar o texto */
+      text-decoration: none;
+      /* Remover o sublinhado */
+      border-radius: 5px;
+      /* Bordas arredondadas */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      /* Sombra sutil */
+      transition: background-color 0.3s, transform 0.2s;
+      /* Efeitos de transição */
+    }
+
+    .custom-button i {
+      margin-right: 8px;
+      /* Espaço entre o ícone e o texto */
+    }
+
+
+    .custom-button:active {
+      transform: scale(1);
+      /* Retorna ao tamanho original quando pressionado */
+    }
+  </style>
+
+
+
+</div>
+{{ block.super }}
+{% endblock %}

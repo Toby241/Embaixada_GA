@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %} Embaixada Do Gabao no Brasil {% endblock %}</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="shortcut icon" href="{% static 'images/Design sem nome (12).png' %}" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/new_base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/servicos.css' %}">
+</head>
+
+<body>
+  <header id="header" class="header">
+    <div class="container header__container">
+      <nav class="nav">
+        <div class="nav__left">
+          <a href="{% url 'home' %}" class="nav__brand">
+            <img src="{% static 'images/logo_emb.png' %}" alt="Logo da Embaixada" class="nav__logo">
+            <p class="nav__title">Embaixada da República Gabonesa no Brasil</p>
+          </a>
+        </div>
+        <div class="nav__center">
+          <ul class="nav__menu">
+            <li class="nav__item"><a href="{% url 'home' %}" class="nav__link">Início</a></li>
+
+            <li class="nav-item dropdown me-1">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownAtualidades"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sobre
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownAtualidades">
+                <li><a class="dropdown-item d-flex align-items-center" href="{% url 'embaixada' %}">Embaixada</a></li>
+                <li><a class="dropdown-item d-flex align-items-center" href="{% url 'embaixador' %}">Embaixador</a></li>
+                <li><a class="dropdown-item d-flex align-items-center" href="{% url 'departemento' %}">Departamento</a>
+                <li><a href="{% url 'gabao' %}" class="dropdown-item d-flex align-items-center">O Gabão</a></li>
+              </ul>
+            </li>
+
+
+            <li class="nav__item"><a href="{% url 'servicos' %}" class="nav__link">Serviços</a></li>
+
+            <li class="nav__item">
+              <!-- Botão para abrir a sidebar -->
+              <a class="nav__link" id="toggleSidebar" href="#" role="button">Eventos</a>
+
+              <!-- Sidebar (Offcanvas) -->
+              <div id="sidebar" class="custom-sidebar">
+                <div class="custom-sidebar-header">
+                  <h5 class="custom-sidebar-title">Eventos </h5>
+                  <button id="closeSidebar" class="custom-close-btn">×</button>
+                </div>
+                <div class="custom-sidebar-body">
+                  <p>Conteúdo da sidebar aqui...</p>
+
+
+
+                  <!-- Calendário -->
+                  <div id="calendar"></div>
+                  <!-- Lista de Eventos -->
+                  <div class="lista-evento mt-3">
+                    {% for evento in ultimos_eventos %}
+                    <div class="evento-item" data-titulo="{{ evento.titulo }}">
+                      <h3 class="evento-titulo">{{ evento.titulo }}</h3>
+                      <p>{{ evento.descricao|default:"Sem descrição" }}</p>
+                      <p><strong>Data:</strong> {{ evento.data|date:"Y-m-d H:i:s" }}</p>
+                      <p><strong>Local:</strong> {{ evento.local|default:"Local não informado" }}</p>
+                    </div>
+
+                    {% empty %}
+                    <p class="text-center text-muted">Nenhum evento encontrado.</p>
+                    {% endfor %}
+                  </div>
+
+
+                </div>
+            </li>
+            <li class="nav-item dropdown me-1">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownAtualidades"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Atualidades
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownAtualidades">
+                <li><a class="dropdown-item d-flex align-items-center" href="{% url 'lista_noticias' %}">Notícias</a>
+                </li>
+                <li><a class="dropdown-item d-flex align-items-center"
+                    href="{% url 'lista_comunicados' %}">Comunicados</a>
+                </li>
+                <li>
+
+                </li>
+                <li><a class="dropdown-item d-flex align-items-center" href="{% url 'mensagem' %}">Mensagem do
+                    Embaixador</a></li>
+
+              </ul>
+            </li>
+          </ul>
+
+
+
+          <div class="nav__search">
+            <input type="search" id="searchInput" placeholder="Buscar..." class="nav__input">
+            <svg class="nav__search-icon" id="searchIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+                d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+            </svg>
+          </div>
+
+          <script>
+            document.getElementById('searchIcon').addEventListener('click', function () {
+              performSearch();
+            });
+
+            document.getElementById('searchInput').addEventListener('keypress', function (event) {
+              if (event.key === 'Enter') {
+                performSearch();
+              }
+            });
+
+            function performSearch() {
+              const searchTerm = document.getElementById('searchInput').value.trim();
+              if (searchTerm) {
+                window.location.href = `{% url 'search' %}?q=${encodeURIComponent(searchTerm)}`;
+              }
+            }
+          </script>
+
+
+        </div>
+        <div class="nav__right">
+          <div class="dropdown">
+            <button type="button" class="dropdown-button" data-bs-toggle="dropdown" aria-expanded="false"
+              data-bs-auto-close="outside">
+              Entrar <i class="ri-arrow-right-line"></i>
+            </button>
+
+            <form class="dropdown-menu form-container">
+              <div class="input-group">
+                <label for="emailField" class="input-label">Email address</label>
+                <input type="email" class="input-field" id="emailField" placeholder="email@example.com">
+              </div>
+              <div class="input-group">
+                <label for="passwordField" class="input-label">Password</label>
+                <input type="password" class="input-field" id="passwordField" placeholder="Password">
+              </div>
+              <div class="checkbox-group">
+                <input type="checkbox" class="custom-checkbox" id="rememberMe">
+                <label for="rememberMe" class="checkbox-label">Remember me</label>
+              </div>
+              <button type="submit" class="login-button">Sign in</button>
+            </form>
+          </div>
+          <a href="#" class="nav__btn"><i class="ri-user-line"></i> Cadastre-se</a>
+        </div>
+        <div class="nav__toggle" id="nav-toggle">
+          <i class="ri-menu-3-line"></i>
+        </div>
+      </nav>
+    </div>
+
+
+  </header>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+
+
+
+
+  <div class="onca">
+    <i class="ri-tools-fill"></i>
+
+    <h2 class="section__title">Services Consulaires</h2>
+    <p>Diplomatie et services consulaires pour unir le Gabon au monde.</p>
+  </div>
+
+  <section id="services" class="section_service">
+
+    <div class="container">
+      <div class="section__header">
+      </div>
+
+      <!-- Contêiner flexível para os cards -->
+      <div class="service__wrapper">
+        <!-- Card 1: Visas -->
+        <div class="service__card" data-section="visas">
+          <h3 class="service__title"><i class="ri-passport-fill"></i> Assistance et délivrance de visas</h3>
+          <ul class="service__sublist">
+            <li>Visas touristiques</li>
+            <li>Visas d'affaires</li>
+            <li>Visas de transit</li>
+          </ul>
+          <a href="#" class="service__link"><i class="ri-external-link-line"></i></a>
+        </div>
+
+        <!-- Card 2: Documents et Certificats -->
+        <div class="service__card" data-section="documents">
+          <h3 class="service__title"><i class="ri-file-text-line"></i> Documents et Certificats</h3>
+          <ul class="service__sublist">
+            <li>Passeports gabonais</li>
+            <li>Légalisation de documents</li>
+            <li>Actes de naissance, mariage...</li>
+          </ul>
+          <a href="#" class="service__link"><i class="ri-external-link-line"></i></a>
+        </div>
+
+        <!-- Card 3: Assistance aux Citoyens -->
+        <div class="service__card" data-section="assistance">
+          <h3 class="service__title"><i class="ri-map-pin-line"></i> Assistance aux Citoyens</h3>
+          <ul class="service__sublist">
+            <li>Aide en cas d'urgence</li>
+            <li>Assistance juridique</li>
+            <li>Soutien en cas de détention</li>
+          </ul>
+          <a href="#" class="service__link"><i class="ri-external-link-line"></i></a>
+        </div>
+
+        <!-- Card 4: Textes de Lois et Avantages -->
+        <div class="service__card" data-section="lois">
+          <h3 class="service__title"><i class="ri-alarm-warning-fill"></i> Textes de Lois et Avantages</h3>
+          <ul class="service__sublist">
+            <li>Droits des citoyens à l'étranger</li>
+            <li>Avantages fiscaux et douaniers</li>
+            <li>Conseils juridiques</li>
+          </ul>
+          <a href="#" class="service__link"><i class="ri-external-link-line"></i></a>
+        </div>
+
+        <!-- Card 5: Agence Nationale des Bourses -->
+        <div class="service__card" data-section="bourses">
+          <h3 class="service__title"><i class="ri-book-line"></i> Agence Nationale des Bourses</h3>
+          <ul class="service__sublist">
+            <li>Etudier au Gabon</li>
+            <li>Etudier au Brésil</li>
+            <li>Assistance administrative ANBG</li>
+          </ul>
+          <a href="#" class="service__link"><i class="ri-external-link-line"></i></a>
+        </div>
+
+        <!-- Card 6: Commerciaux et Financiers -->
+        <div class="service__card" data-section="commerciaux">
+          <h3 class="service__title"><i class="ri-line-chart-line"></i> Commerciaux et Financiers</h3>
+          <ul class="service__sublist">
+            <li>Douane et importation/exportation</li>
+            <li>Promotion des investissements</li>
+          </ul>
+          <a href="#" class="service__link"><i class="ri-external-link-line"></i></a>
+        </div>
+
+        <!-- Card 7: Services Culturels -->
+        <div class="service__card" data-section="culturels">
+          <h3 class="service__title"><i class="ri-book-read-line"></i> Services Culturels</h3>
+          <ul class="service__sublist">
+            <li>Promotion culturelle</li>
+            <li>Organisation d'événements</li>
+            <li>Informations sur bourses et formations</li>
+          </ul>
+          <a href="#" class="service__link"><i class="ri-external-link-line"></i></a>
+        </div>
+
+        <!-- Card 8: Services Notariaux -->
+        <div class="service__card" data-section="notariaux">
+          <h3 class="service__title"><i class="ri-pen-nib-line"></i> Services Notariaux</h3>
+          <ul class="service__sublist">
+            <li>Certification de signatures</li>
+            <li>Authentification de documents</li>
+            <li>Rédaction d'actes notariés</li>
+            <li>Conseils juridiques</li>
+          </ul>
+          <a href="#" class="service__link"><i class="ri-external-link-line"></i></a>
+        </div>
+
+        <!-- Card 9: Assistance Médicale -->
+        <div class="service__card" data-section="medicale">
+          <h3 class="service__title"><i class="ri-heart-pulse-line"></i> Assistance Médicale</h3>
+          <ul class="service__sublist">
+            <li>Aide pour évacuation médicale</li>
+            <li>Conseils sur assurances médicales</li>
+          </ul>
+          <a href="#" class="service__link"><i class="ri-external-link-line"></i></a>
+        </div>
+
+        <!-- Card 10: Services Électoraux -->
+        <div class="service__card" data-section="electoraux">
+          <h3 class="service__title"><i class="ri-user-star-line"></i> Services Électoraux</h3>
+          <ul class="service__sublist">
+            <li>Élections gabonaises</li>
+            <li>Voter à l'étranger</li>
+            <li>Procédures électorales</li>
+          </ul>
+          <a href="#" class="service__link"><i class="ri-external-link-line"></i></a>
+        </div>
+      </div>
+      <br>
+
+      <main>
+        <!-- Seção 1: Visas -->
+        <section id="visas" class="service-detail hidden">
+          <h1>Assistance et délivrance de visas</h1>
+          <div>
+            <h2>Visas touristiques</h2>
+            <p>Para solicitar um visto turístico, você precisa apresentar:</p>
+            <ul>
+              <li>Passaporte válido.</li>
+              <li>Comprovante de hospedagem.</li>
+              <li>Passagem de ida e volta.</li>
+              <li>Seguro viagem.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Visas d'affaires</h2>
+            <p>Documentos necessários:</p>
+            <ul>
+              <li>Carta-convite da empresa no Gabão.</li>
+              <li>Comprovante de vínculo empregatício.</li>
+              <li>Passaporte válido.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Visas de transit</h2>
+            <p>Para voos com conexão no Gabão:</p>
+            <ul>
+              <li>Passaporte válido.</li>
+              <li>Visto do país de destino.</li>
+              <li>Passagem confirmada.</li>
+            </ul>
+          </div>
+          <a href="#" class="back-link">Voltar para a página inicial</a>
+        </section>
+
+        <!-- Seção 2: Documents et Certificats -->
+        <section id="documents" class="service-detail hidden">
+          <h1>Documents et Certificats</h1>
+          <div>
+            <h2>Passeports gabonais</h2>
+            <p>Requisitos para emissão:</p>
+            <ul>
+              <li>Carteira de identidade.</li>
+              <li>Comprovante de residência.</li>
+              <li>Taxa de emissão.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Légalisation de documents</h2>
+            <p>Documentos que podem ser legalizados:</p>
+            <ul>
+              <li>Certidões de nascimento, casamento, etc.</li>
+              <li>Diplomas e históricos escolares.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Actes de naissance, mariage...</h2>
+            <p>Como solicitar:</p>
+            <ul>
+              <li>Preencher formulário online.</li>
+              <li>Pagar taxa correspondente.</li>
+            </ul>
+          </div>
+          <a href="#" class="back-link">Voltar para a página inicial</a>
+        </section>
+
+        <!-- Seção 3: Assistance aux Citoyens -->
+        <section id="assistance" class="service-detail hidden">
+          <h1>Assistance aux Citoyens</h1>
+          <div>
+            <h2>Aide en cas d'urgence</h2>
+            <p>Em caso de emergência, ligue para:</p>
+            <ul>
+              <li>Número de emergência da embaixada: +XX XXXX-XXXX.</li>
+              <li>Serviço de assistência 24h.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Assistance juridique</h2>
+            <p>Serviços oferecidos:</p>
+            <ul>
+              <li>Aconselhamento legal.</li>
+              <li>Acompanhamento em processos judiciais.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Soutien en cas de détention</h2>
+            <p>O que fazer se for detido:</p>
+            <ul>
+              <li>Contatar a embaixada imediatamente.</li>
+              <li>Direito a visitas consulares.</li>
+            </ul>
+          </div>
+          <a href="#" class="back-link">Voltar para a página inicial</a>
+        </section>
+
+        <!-- Seção 4: Textes de Lois et Avantages -->
+        <section id="lois" class="service-detail hidden">
+          <h1>Textes de Lois et Avantages</h1>
+          <div>
+            <h2>Droits des citoyens à l'étranger</h2>
+            <p>Conheça seus direitos:</p>
+            <ul>
+              <li>Proteção consular.</li>
+              <li>Acesso a serviços públicos.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Avantages fiscaux et douaniers</h2>
+            <p>Benefícios para cidadãos gaboneses:</p>
+            <ul>
+              <li>Isenção de taxas em determinados casos.</li>
+              <li>Facilidades para importação/exportação.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Conseils juridiques</h2>
+            <p>Serviços de orientação:</p>
+            <ul>
+              <li>Contratos internacionais.</li>
+              <li>Disputas comerciais.</li>
+            </ul>
+          </div>
+          <a href="#" class="back-link">Voltar para a página inicial</a>
+        </section>
+
+        <!-- Seção 5: Agence Nationale des Bourses -->
+        <section id="bourses" class="service-detail hidden">
+          <h1>Agence Nationale des Bourses</h1>
+          <div>
+            <h2>Etudier au Gabon</h2>
+            <p>Como se candidatar:</p>
+            <ul>
+              <li>Preencher formulário de inscrição.</li>
+              <li>Apresentar histórico escolar.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Etudier au Brésil</h2>
+            <p>Parcerias com universidades brasileiras:</p>
+            <ul>
+              <li>Bolsas de estudo disponíveis.</li>
+              <li>Requisitos para candidatura.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Assistance administrative ANBG</h2>
+            <p>Apoio para estudantes:</p>
+            <ul>
+              <li>Renovação de bolsas.</li>
+              <li>Documentação necessária.</li>
+            </ul>
+          </div>
+          <a href="#" class="back-link">Voltar para a página inicial</a>
+        </section>
+
+        <!-- Seção 6: Commerciaux et Financiers -->
+        <section id="commerciaux" class="service-detail hidden">
+          <h1>Commerciaux et Financiers</h1>
+          <div>
+            <h2>Douane et importation/exportation</h2>
+            <p>Regulamentações:</p>
+            <ul>
+              <li>Documentos necessários.</li>
+              <li>Taxas aplicáveis.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Promotion des investissements</h2>
+            <p>Oportunidades de investimento:</p>
+            <ul>
+              <li>Setores prioritários.</li>
+              <li>Incentivos fiscais.</li>
+            </ul>
+          </div>
+          <a href="#" class="back-link">Voltar para a página inicial</a>
+        </section>
+
+        <!-- Seção 7: Services Culturels -->
+        <section id="culturels" class="service-detail hidden">
+          <h1>Services Culturels</h1>
+          <div>
+            <h2>Promotion culturelle</h2>
+            <p>Eventos e atividades:</p>
+            <ul>
+              <li>Exposições de arte.</li>
+              <li>Festivais culturais.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Organisation d'événements</h2>
+            <p>Como solicitar apoio:</p>
+            <ul>
+              <li>Enviar proposta para a embaixada.</li>
+              <li>Cronograma e orçamento.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Informations sur bourses e formações</h2>
+            <p>Oportunidades de formação:</p>
+            <ul>
+              <li>Cursos disponíveis.</li>
+              <li>Requisitos para inscrição.</li>
+            </ul>
+          </div>
+          <a href="#" class="back-link">Voltar para a página inicial</a>
+        </section>
+
+        <!-- Seção 8: Services Notariaux -->
+        <section id="notariaux" class="service-detail hidden">
+          <h1>Services Notariaux</h1>
+          <div>
+            <h2>Certification de signatures</h2>
+            <p>Como solicitar:</p>
+            <ul>
+              <li>Comparecer pessoalmente.</li>
+              <li>Documento original e cópia.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Authentification de documents</h2>
+            <p>Documentos aceitos:</p>
+            <ul>
+              <li>Certidões, diplomas, contratos.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Rédaction d'actes notariés</h2>
+            <p>Serviços oferecidos:</p>
+            <ul>
+              <li>Procurações.</li>
+              <li>Testamentos.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Conseils juridiques</h2>
+            <p>Aconselhamento em:</p>
+            <ul>
+              <li>Direito civil.</li>
+              <li>Direito comercial.</li>
+            </ul>
+          </div>
+          <a href="#" class="back-link">Voltar para a página inicial</a>
+        </section>
+
+        <!-- Seção 9: Assistance Médicale -->
+        <section id="medicale" class="service-detail hidden">
+          <h1>Assistance Médicale</h1>
+          <div>
+            <h2>Aide pour évacuation médicale</h2>
+            <p>Como solicitar:</p>
+            <ul>
+              <li>Contatar a embaixada imediatamente.</li>
+              <li>Apresentar relatório médico.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Conseils sur assurances médicales</h2>
+            <p>Orientações sobre:</p>
+            <ul>
+              <li>Seguros internacionais.</li>
+              <li>Coberturas necessárias.</li>
+            </ul>
+          </div>
+          <a href="#" class="back-link">Voltar para a página inicial</a>
+        </section>
+
+
+
+        <!-- Seção 10: Services Électoraux -->
+        <section id="electoraux" class="service-detail hidden">
+          <h1>Services Électoraux</h1>
+          <div>
+            <h2>Élections gabonaises</h2>
+            <p>Informações sobre as eleições no Gabão:</p>
+            <ul>
+              <li>Calendário eleitoral.</li>
+              <li>Documentos necessários para votar.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Voter à l'étranger</h2>
+            <p>Como votar estando no exterior:</p>
+            <ul>
+              <li>Registro no consulado.</li>
+              <li>Locais de votação.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Procédures électorales</h2>
+            <p>Passos para participar das eleições:</p>
+            <ul>
+              <li>Registro eleitoral.</li>
+              <li>Verificação de dados.</li>
+            </ul>
+          </div>
+          <a href="#" class="back-link">Voltar para a página inicial</a>
+        </section>
+      </main>
+    </div>
+
+
+    <footer id="footer" class="footer">
+      <div class="container">
+        <div class="d-grid footer__wrapper">
+          <div class="footer__content">
+            <h4 class="footer__title">Siga-nos</h4>
+            <ul class="footer__social-list">
+              <li class="footer__social-item"><a href="#" class="footer__social-link"><i
+                    class="ri-facebook-fill"></i></a>
+              </li>
+              <li class="footer__social-item"><a href="#" class="footer__social-link"><i
+                    class="ri-instagram-fill"></i></a></li>
+              <li class="footer__social-item"><a href="#" class="footer__social-link"><i
+                    class="ri-twitter-fill"></i></a>
+              </li>
+              <li class="footer__social-item"><a href="#" class="footer__social-link"><i
+                    class="ri-linkedin-fill"></i></a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer__content">
+            <h4 class="footer__title">Contato</h4>
+            <p class="footer__contact-info">
+              <strong>E-mail:</strong> <a href="mailto:contato@embaixadadogabon.br"
+                class="footer__contact">contato@embaixadadogabon.br</a><br>
+              <strong>Telefone:</strong> <a href="tel:+55-61-1234-5678" class="footer__contact">+55 61 1234-5678</a><br>
+              <strong>Número de emergência:</strong> <a href="tel:+33-1-89-71-92-99" class="footer__contact">+33 1 89 71
+                92 99</a>
+            </p>
+          </div>
+          <div class="footer__content">
+            <h4 class="footer__title">Endereço e Horários</h4>
+            <p class="footer__contact-info">
+              <strong>Endereço:</strong><br>Embaixada do Gabão no Brasil<br>SHIS QI 15, Conjunto 10, Casa
+              20<br>71640-115
+              Brasília, DF, Brasil<br>
+            </p>
+            <p class="footer__contact-info">
+              <strong>Horário de funcionamento:</strong><br>Segunda - Quinta: 9h00 - 16h30<br>Sexta: 9h00 - 16h00
+            </p>
+          </div>
+          <div class="footer__content">
+            <h4 class="footer__title">Equipe e Localização</h4>
+            <p class="footer__contact-info">
+              <strong>Cônsul Geral:</strong> [Nome do Cônsul]<br>
+              <strong>Embaixador:</strong> [Nome do Embaixador]<br>
+            </p>
+            <div class="footer__map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3839.123456789012!2d-47.87654321098765!3d-15.789012345678901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTXCsDQ3JzIwLjQiUyA0N8KwNTInMzEuNiJX!5e0!3m2!1sen!2sbr!4v1699999999999!5m2!1sen!2sbr"
+                width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="copy">
+          <p class="footer__copyright">&copy; 2024 Embaixada do Gabão no Brasil. Todos os direitos reservados.</p>
+        </div>
+      </div>
+
+      <!-- Smartsupp Live Chat script -->
+      <script type="text/javascript">
+        var _smartsupp = _smartsupp || {};
+        _smartsupp.key = '44628ee8ca4a629d871ef155039d8573f0ef3d61';
+        window.smartsupp || (function (d) {
+          var s, c, o = smartsupp = function () { o._.push(arguments) }; o._ = [];
+          s = d.getElementsByTagName('script')[0]; c = d.createElement('script');
+          c.type = 'text/javascript'; c.charset = 'utf-8'; c.async = true;
+          c.src = 'https://www.smartsuppchat.com/loader.js?'; s.parentNode.insertBefore(c, s);
+        })(document);
+      </script>
+      <noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="{% static 'js/servicos.js' %}"></script>
+</body>
+
+</html>
+
+<style>
+  .service-detail {
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .service-detail:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Estilos para o título principal */
+  .service-detail h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  /* Estilos para subtítulos */
+  .service-detail h2 {
+    font-size: 1.4em;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: #444;
+    font-weight: 500;
+  }
+
+  /* Estilos para listas */
+  .service-detail ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .service-detail ul li {
+    padding: 8px 0;
+    color: #555;
+    font-size: 1em;
+  }
+
+  /* Estilos para o link de voltar */
+  .back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+  }
+
+  .back-link:hover {
+    background-color: #e0e0e0;
+  }
+
+  /* Classe para esconder elementos */
+  .hidden {
+    display: none;
+  }
+</style>
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".service__card");
+    const sections = document.querySelectorAll(".service-detail");
+    const serviceWrapper = document.querySelector(".service__wrapper");
+
+    // Função para exibir a seção correspondente
+    function showSection(targetSectionId) {
+      const targetSection = document.getElementById(targetSectionId);
+
+      // Esconde todas as seções
+      sections.forEach((section) => {
+        section.classList.add("hidden");
+      });
+
+      // Exibe a seção correspondente
+      if (targetSection) {
+        targetSection.classList.remove("hidden");
+      }
+
+      // Esconde o service__wrapper
+      serviceWrapper.classList.add("hidden");
+    }
+
+    // Adiciona evento de clique aos cards
+    cards.forEach((card) => {
+      card.addEventListener("click", function () {
+        const targetSectionId = card.getAttribute("data-section");
+        showSection(targetSectionId);
+      });
+    });
+
+    // Adiciona evento de clique aos links dentro dos cards
+    const cardLinks = document.querySelectorAll(".service__link");
+    cardLinks.forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault(); // Impede o comportamento padrão do link
+        const card = link.closest(".service__card"); // Encontra o card pai
+        const targetSectionId = card.getAttribute("data-section"); // Obtém o data-section do card
+        showSection(targetSectionId);
+      });
+    });
+
+    // Adiciona funcionalidade para voltar ao service__wrapper
+    const backLinks = document.querySelectorAll(".back-link");
+    backLinks.forEach((link) => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault(); // Impede o comportamento padrão do link
+        sections.forEach((section) => {
+          section.classList.add("hidden"); // Esconde todas as seções
+        });
+        serviceWrapper.classList.remove("hidden"); // Exibe o service__wrapper
+      });
+    });
+  });
+</script>
